@@ -27,13 +27,9 @@ target_include_directories(${APP_TARGET}
 
 target_link_libraries(${APP_TARGET}
     PRIVATE
-        Qt${QT_VERSION_MAJOR}::Widgets
+        Qt6::Widgets
 )
 
 if(WIN32)
     set_target_properties(${APP_TARGET} PROPERTIES WIN32_EXECUTABLE ON)
-endif()
-
-if(QT_VERSION_MAJOR EQUAL 6)
-    qt_finalize_executable(${APP_TARGET})
 endif()

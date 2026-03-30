@@ -3,6 +3,7 @@
 #include <QWidget>
 
 class QLabel;
+class QPushButton;
 class QTextEdit;
 
 class InfoPanel final : public QWidget
@@ -15,7 +16,12 @@ public:
     void setTitle(const QString& title);
     void setContent(const QString& content);
 
+signals:
+    void exitClicked();
+
 private:
+    QWidget* headerBar_ = nullptr;
+    QPushButton* exitButton_ = nullptr;
     QLabel* titleLabel_ = nullptr;
     QTextEdit* contentView_ = nullptr;
 };
