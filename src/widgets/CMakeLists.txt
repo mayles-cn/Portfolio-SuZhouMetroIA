@@ -1,0 +1,6 @@
+set(WIDGET_SOURCES
+    ${WIDGET_SOURCES}
+    ${CMAKE_CURRENT_SOURCE_DIR}/info_panel.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/info_panel.h
+    PARENT_SCOPE
+)

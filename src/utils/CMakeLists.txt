@@ -1,0 +1,6 @@
+set(UTIL_SOURCES
+    ${UTIL_SOURCES}
+    ${CMAKE_CURRENT_SOURCE_DIR}/time_utils.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/time_utils.h
+    PARENT_SCOPE
+)

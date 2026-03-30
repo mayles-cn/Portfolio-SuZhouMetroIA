@@ -1,0 +1,6 @@
+set(MODEL_SOURCES
+    ${MODEL_SOURCES}
+    ${CMAKE_CURRENT_SOURCE_DIR}/metro_line.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/metro_line.h
+    PARENT_SCOPE
+)
