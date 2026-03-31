@@ -9,6 +9,7 @@ set(APP_SOURCES
     main.cpp
     mainwindow.cpp
     mainwindow.h
+    ${CMAKE_SOURCE_DIR}/resources/metro_data.qrc
     ${MODEL_SOURCES}
     ${SERVICE_SOURCES}
     ${UTIL_SOURCES}
@@ -28,6 +29,7 @@ target_include_directories(${APP_TARGET}
 target_link_libraries(${APP_TARGET}
     PRIVATE
         Qt6::Widgets
+        Qt6::Multimedia
 )
 
 if(WIN32)

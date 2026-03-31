@@ -1,16 +1,13 @@
 #pragma once
 
 #include <QMainWindow>
-#include <QString>
-
-#include <memory>
-
-namespace szmetro
-{
-class RouteService;
-}
-
-class InfoPanel;
+class ChatPanelWidget;
+class MetroMapWidget;
+class InformationBarWidget;
+class QLabel;
+class QWidget;
+class QKeyEvent;
+class QResizeEvent;
 
 class MainWindow final : public QMainWindow
 {
@@ -22,8 +19,16 @@ public:
 
 private:
     void buildUi();
-    QString buildWelcomeText() const;
+    void layoutControls();
+    void buildBranding();
+    void keyPressEvent(QKeyEvent* event) override;
+    void resizeEvent(QResizeEvent* event) override;
 
-    std::unique_ptr<szmetro::RouteService> routeService_;
-    InfoPanel* infoPanel_ = nullptr;
+    MetroMapWidget* metroMap_ = nullptr;
+    ChatPanelWidget* chatPanel_ = nullptr;
+    InformationBarWidget* informationBar_ = nullptr;
+    QWidget* brandingWidget_ = nullptr;
+    QLabel* brandLogoLabel_ = nullptr;
+    QLabel* brandTitleLabel_ = nullptr;
+    QLabel* brandSubtitleLabel_ = nullptr;
 };

@@ -2,6 +2,7 @@
 /out*/
 /cmake-build-*/
 /resources*/
+/docs*/
 
 /.idea/
 /.vscode/
@@ -23,3 +24,9 @@ ui_*.h
 *.so
 *.a
 *.lib
+
+# Local API keys (never commit real keys)
+config/api_keys.json
+
+# Generated station map cache (one-time local download artifacts)
+src/models/station_maps/

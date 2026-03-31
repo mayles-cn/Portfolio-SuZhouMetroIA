@@ -1,0 +1,950 @@
+{
+    "meta":  {
+                 "schema":  "station-map-manifest-v1",
+                 "generated_at":  "2026-03-31T17:59:03Z",
+                 "image_dir":  "src/models/station_maps",
+                 "count":  235
+             },
+    "stations":  [
+                     {
+                         "id":  "ST0001",
+                         "file":  "ST0001.png"
+                     },
+                     {
+                         "id":  "ST0002",
+                         "file":  "ST0002.png"
+                     },
+                     {
+                         "id":  "ST0003",
+                         "file":  "ST0003.png"
+                     },
+                     {
+                         "id":  "ST0004",
+                         "file":  "ST0004.png"
+                     },
+                     {
+                         "id":  "ST0005",
+                         "file":  "ST0005.png"
+                     },
+                     {
+                         "id":  "ST0006",
+                         "file":  "ST0006.png"
+                     },
+                     {
+                         "id":  "ST0007",
+                         "file":  "ST0007.png"
+                     },
+                     {
+                         "id":  "ST0008",
+                         "file":  "ST0008.png"
+                     },
+                     {
+                         "id":  "ST0009",
+                         "file":  "ST0009.png"
+                     },
+                     {
+                         "id":  "ST0010",
+                         "file":  "ST0010.png"
+                     },
+                     {
+                         "id":  "ST0011",
+                         "file":  "ST0011.png"
+                     },
+                     {
+                         "id":  "ST0012",
+                         "file":  "ST0012.png"
+                     },
+                     {
+                         "id":  "ST0013",
+                         "file":  "ST0013.png"
+                     },
+                     {
+                         "id":  "ST0014",
+                         "file":  "ST0014.png"
+                     },
+                     {
+                         "id":  "ST0015",
+                         "file":  "ST0015.png"
+                     },
+                     {
+                         "id":  "ST0016",
+                         "file":  "ST0016.png"
+                     },
+                     {
+                         "id":  "ST0017",
+                         "file":  "ST0017.png"
+                     },
+                     {
+                         "id":  "ST0018",
+                         "file":  "ST0018.png"
+                     },
+                     {
+                         "id":  "ST0019",
+                         "file":  "ST0019.png"
+                     },
+                     {
+                         "id":  "ST0020",
+                         "file":  "ST0020.png"
+                     },
+                     {
+                         "id":  "ST0021",
+                         "file":  "ST0021.png"
+                     },
+                     {
+                         "id":  "ST0022",
+                         "file":  "ST0022.png"
+                     },
+                     {
+                         "id":  "ST0023",
+                         "file":  "ST0023.png"
+                     },
+                     {
+                         "id":  "ST0024",
+                         "file":  "ST0024.png"
+                     },
+                     {
+                         "id":  "ST0025",
+                         "file":  "ST0025.png"
+                     },
+                     {
+                         "id":  "ST0026",
+                         "file":  "ST0026.png"
+                     },
+                     {
+                         "id":  "ST0027",
+                         "file":  "ST0027.png"
+                     },
+                     {
+                         "id":  "ST0028",
+                         "file":  "ST0028.png"
+                     },
+                     {
+                         "id":  "ST0029",
+                         "file":  "ST0029.png"
+                     },
+                     {
+                         "id":  "ST0030",
+                         "file":  "ST0030.png"
+                     },
+                     {
+                         "id":  "ST0031",
+                         "file":  "ST0031.png"
+                     },
+                     {
+                         "id":  "ST0032",
+                         "file":  "ST0032.png"
+                     },
+                     {
+                         "id":  "ST0033",
+                         "file":  "ST0033.png"
+                     },
+                     {
+                         "id":  "ST0034",
+                         "file":  "ST0034.png"
+                     },
+                     {
+                         "id":  "ST0035",
+                         "file":  "ST0035.png"
+                     },
+                     {
+                         "id":  "ST0036",
+                         "file":  "ST0036.png"
+                     },
+                     {
+                         "id":  "ST0037",
+                         "file":  "ST0037.png"
+                     },
+                     {
+                         "id":  "ST0038",
+                         "file":  "ST0038.png"
+                     },
+                     {
+                         "id":  "ST0039",
+                         "file":  "ST0039.png"
+                     },
+                     {
+                         "id":  "ST0040",
+                         "file":  "ST0040.png"
+                     },
+                     {
+                         "id":  "ST0041",
+                         "file":  "ST0041.png"
+                     },
+                     {
+                         "id":  "ST0042",
+                         "file":  "ST0042.png"
+                     },
+                     {
+                         "id":  "ST0043",
+                         "file":  "ST0043.png"
+                     },
+                     {
+                         "id":  "ST0044",
+                         "file":  "ST0044.png"
+                     },
+                     {
+                         "id":  "ST0045",
+                         "file":  "ST0045.png"
+                     },
+                     {
+                         "id":  "ST0046",
+                         "file":  "ST0046.png"
+                     },
+                     {
+                         "id":  "ST0047",
+                         "file":  "ST0047.png"
+                     },
+                     {
+                         "id":  "ST0048",
+                         "file":  "ST0048.png"
+                     },
+                     {
+                         "id":  "ST0049",
+                         "file":  "ST0049.png"
+                     },
+                     {
+                         "id":  "ST0050",
+                         "file":  "ST0050.png"
+                     },
+                     {
+                         "id":  "ST0051",
+                         "file":  "ST0051.png"
+                     },
+                     {
+                         "id":  "ST0052",
+                         "file":  "ST0052.png"
+                     },
+                     {
+                         "id":  "ST0053",
+                         "file":  "ST0053.png"
+                     },
+                     {
+                         "id":  "ST0054",
+                         "file":  "ST0054.png"
+                     },
+                     {
+                         "id":  "ST0055",
+                         "file":  "ST0055.png"
+                     },
+                     {
+                         "id":  "ST0056",
+                         "file":  "ST0056.png"
+                     },
+                     {
+                         "id":  "ST0057",
+                         "file":  "ST0057.png"
+                     },
+                     {
+                         "id":  "ST0058",
+                         "file":  "ST0058.png"
+                     },
+                     {
+                         "id":  "ST0059",
+                         "file":  "ST0059.png"
+                     },
+                     {
+                         "id":  "ST0060",
+                         "file":  "ST0060.png"
+                     },
+                     {
+                         "id":  "ST0061",
+                         "file":  "ST0061.png"
+                     },
+                     {
+                         "id":  "ST0062",
+                         "file":  "ST0062.png"
+                     },
+                     {
+                         "id":  "ST0063",
+                         "file":  "ST0063.png"
+                     },
+                     {
+                         "id":  "ST0064",
+                         "file":  "ST0064.png"
+                     },
+                     {
+                         "id":  "ST0065",
+                         "file":  "ST0065.png"
+                     },
+                     {
+                         "id":  "ST0066",
+                         "file":  "ST0066.png"
+                     },
+                     {
+                         "id":  "ST0067",
+                         "file":  "ST0067.png"
+                     },
+                     {
+                         "id":  "ST0068",
+                         "file":  "ST0068.png"
+                     },
+                     {
+                         "id":  "ST0069",
+                         "file":  "ST0069.png"
+                     },
+                     {
+                         "id":  "ST0070",
+                         "file":  "ST0070.png"
+                     },
+                     {
+                         "id":  "ST0071",
+                         "file":  "ST0071.png"
+                     },
+                     {
+                         "id":  "ST0072",
+                         "file":  "ST0072.png"
+                     },
+                     {
+                         "id":  "ST0073",
+                         "file":  "ST0073.png"
+                     },
+                     {
+                         "id":  "ST0074",
+                         "file":  "ST0074.png"
+                     },
+                     {
+                         "id":  "ST0075",
+                         "file":  "ST0075.png"
+                     },
+                     {
+                         "id":  "ST0076",
+                         "file":  "ST0076.png"
+                     },
+                     {
+                         "id":  "ST0077",
+                         "file":  "ST0077.png"
+                     },
+                     {
+                         "id":  "ST0078",
+                         "file":  "ST0078.png"
+                     },
+                     {
+                         "id":  "ST0079",
+                         "file":  "ST0079.png"
+                     },
+                     {
+                         "id":  "ST0080",
+                         "file":  "ST0080.png"
+                     },
+                     {
+                         "id":  "ST0081",
+                         "file":  "ST0081.png"
+                     },
+                     {
+                         "id":  "ST0082",
+                         "file":  "ST0082.png"
+                     },
+                     {
+                         "id":  "ST0083",
+                         "file":  "ST0083.png"
+                     },
+                     {
+                         "id":  "ST0084",
+                         "file":  "ST0084.png"
+                     },
+                     {
+                         "id":  "ST0085",
+                         "file":  "ST0085.png"
+                     },
+                     {
+                         "id":  "ST0086",
+                         "file":  "ST0086.png"
+                     },
+                     {
+                         "id":  "ST0087",
+                         "file":  "ST0087.png"
+                     },
+                     {
+                         "id":  "ST0088",
+                         "file":  "ST0088.png"
+                     },
+                     {
+                         "id":  "ST0089",
+                         "file":  "ST0089.png"
+                     },
+                     {
+                         "id":  "ST0090",
+                         "file":  "ST0090.png"
+                     },
+                     {
+                         "id":  "ST0091",
+                         "file":  "ST0091.png"
+                     },
+                     {
+                         "id":  "ST0092",
+                         "file":  "ST0092.png"
+                     },
+                     {
+                         "id":  "ST0093",
+                         "file":  "ST0093.png"
+                     },
+                     {
+                         "id":  "ST0094",
+                         "file":  "ST0094.png"
+                     },
+                     {
+                         "id":  "ST0095",
+                         "file":  "ST0095.png"
+                     },
+                     {
+                         "id":  "ST0096",
+                         "file":  "ST0096.png"
+                     },
+                     {
+                         "id":  "ST0097",
+                         "file":  "ST0097.png"
+                     },
+                     {
+                         "id":  "ST0098",
+                         "file":  "ST0098.png"
+                     },
+                     {
+                         "id":  "ST0099",
+                         "file":  "ST0099.png"
+                     },
+                     {
+                         "id":  "ST0100",
+                         "file":  "ST0100.png"
+                     },
+                     {
+                         "id":  "ST0101",
+                         "file":  "ST0101.png"
+                     },
+                     {
+                         "id":  "ST0102",
+                         "file":  "ST0102.png"
+                     },
+                     {
+                         "id":  "ST0103",
+                         "file":  "ST0103.png"
+                     },
+                     {
+                         "id":  "ST0104",
+                         "file":  "ST0104.png"
+                     },
+                     {
+                         "id":  "ST0105",
+                         "file":  "ST0105.png"
+                     },
+                     {
+                         "id":  "ST0106",
+                         "file":  "ST0106.png"
+                     },
+                     {
+                         "id":  "ST0107",
+                         "file":  "ST0107.png"
+                     },
+                     {
+                         "id":  "ST0108",
+                         "file":  "ST0108.png"
+                     },
+                     {
+                         "id":  "ST0109",
+                         "file":  "ST0109.png"
+                     },
+                     {
+                         "id":  "ST0110",
+                         "file":  "ST0110.png"
+                     },
+                     {
+                         "id":  "ST0111",
+                         "file":  "ST0111.png"
+                     },
+                     {
+                         "id":  "ST0112",
+                         "file":  "ST0112.png"
+                     },
+                     {
+                         "id":  "ST0113",
+                         "file":  "ST0113.png"
+                     },
+                     {
+                         "id":  "ST0114",
+                         "file":  "ST0114.png"
+                     },
+                     {
+                         "id":  "ST0115",
+                         "file":  "ST0115.png"
+                     },
+                     {
+                         "id":  "ST0116",
+                         "file":  "ST0116.png"
+                     },
+                     {
+                         "id":  "ST0117",
+                         "file":  "ST0117.png"
+                     },
+                     {
+                         "id":  "ST0118",
+                         "file":  "ST0118.png"
+                     },
+                     {
+                         "id":  "ST0119",
+                         "file":  "ST0119.png"
+                     },
+                     {
+                         "id":  "ST0120",
+                         "file":  "ST0120.png"
+                     },
+                     {
+                         "id":  "ST0121",
+                         "file":  "ST0121.png"
+                     },
+                     {
+                         "id":  "ST0122",
+                         "file":  "ST0122.png"
+                     },
+                     {
+                         "id":  "ST0123",
+                         "file":  "ST0123.png"
+                     },
+                     {
+                         "id":  "ST0124",
+                         "file":  "ST0124.png"
+                     },
+                     {
+                         "id":  "ST0125",
+                         "file":  "ST0125.png"
+                     },
+                     {
+                         "id":  "ST0126",
+                         "file":  "ST0126.png"
+                     },
+                     {
+                         "id":  "ST0127",
+                         "file":  "ST0127.png"
+                     },
+                     {
+                         "id":  "ST0128",
+                         "file":  "ST0128.png"
+                     },
+                     {
+                         "id":  "ST0129",
+                         "file":  "ST0129.png"
+                     },
+                     {
+                         "id":  "ST0130",
+                         "file":  "ST0130.png"
+                     },
+                     {
+                         "id":  "ST0131",
+                         "file":  "ST0131.png"
+                     },
+                     {
+                         "id":  "ST0132",
+                         "file":  "ST0132.png"
+                     },
+                     {
+                         "id":  "ST0133",
+                         "file":  "ST0133.png"
+                     },
+                     {
+                         "id":  "ST0134",
+                         "file":  "ST0134.png"
+                     },
+                     {
+                         "id":  "ST0135",
+                         "file":  "ST0135.png"
+                     },
+                     {
+                         "id":  "ST0136",
+                         "file":  "ST0136.png"
+                     },
+                     {
+                         "id":  "ST0137",
+                         "file":  "ST0137.png"
+                     },
+                     {
+                         "id":  "ST0138",
+                         "file":  "ST0138.png"
+                     },
+                     {
+                         "id":  "ST0139",
+                         "file":  "ST0139.png"
+                     },
+                     {
+                         "id":  "ST0140",
+                         "file":  "ST0140.png"
+                     },
+                     {
+                         "id":  "ST0141",
+                         "file":  "ST0141.png"
+                     },
+                     {
+                         "id":  "ST0142",
+                         "file":  "ST0142.png"
+                     },
+                     {
+                         "id":  "ST0143",
+                         "file":  "ST0143.png"
+                     },
+                     {
+                         "id":  "ST0144",
+                         "file":  "ST0144.png"
+                     },
+                     {
+                         "id":  "ST0145",
+                         "file":  "ST0145.png"
+                     },
+                     {
+                         "id":  "ST0146",
+                         "file":  "ST0146.png"
+                     },
+                     {
+                         "id":  "ST0147",
+                         "file":  "ST0147.png"
+                     },
+                     {
+                         "id":  "ST0148",
+                         "file":  "ST0148.png"
+                     },
+                     {
+                         "id":  "ST0149",
+                         "file":  "ST0149.png"
+                     },
+                     {
+                         "id":  "ST0150",
+                         "file":  "ST0150.png"
+                     },
+                     {
+                         "id":  "ST0151",
+                         "file":  "ST0151.png"
+                     },
+                     {
+                         "id":  "ST0152",
+                         "file":  "ST0152.png"
+                     },
+                     {
+                         "id":  "ST0153",
+                         "file":  "ST0153.png"
+                     },
+                     {
+                         "id":  "ST0154",
+                         "file":  "ST0154.png"
+                     },
+                     {
+                         "id":  "ST0155",
+                         "file":  "ST0155.png"
+                     },
+                     {
+                         "id":  "ST0156",
+                         "file":  "ST0156.png"
+                     },
+                     {
+                         "id":  "ST0157",
+                         "file":  "ST0157.png"
+                     },
+                     {
+                         "id":  "ST0158",
+                         "file":  "ST0158.png"
+                     },
+                     {
+                         "id":  "ST0159",
+                         "file":  "ST0159.png"
+                     },
+                     {
+                         "id":  "ST0160",
+                         "file":  "ST0160.png"
+                     },
+                     {
+                         "id":  "ST0161",
+                         "file":  "ST0161.png"
+                     },
+                     {
+                         "id":  "ST0162",
+                         "file":  "ST0162.png"
+                     },
+                     {
+                         "id":  "ST0163",
+                         "file":  "ST0163.png"
+                     },
+                     {
+                         "id":  "ST0164",
+                         "file":  "ST0164.png"
+                     },
+                     {
+                         "id":  "ST0165",
+                         "file":  "ST0165.png"
+                     },
+                     {
+                         "id":  "ST0166",
+                         "file":  "ST0166.png"
+                     },
+                     {
+                         "id":  "ST0167",
+                         "file":  "ST0167.png"
+                     },
+                     {
+                         "id":  "ST0168",
+                         "file":  "ST0168.png"
+                     },
+                     {
+                         "id":  "ST0169",
+                         "file":  "ST0169.png"
+                     },
+                     {
+                         "id":  "ST0170",
+                         "file":  "ST0170.png"
+                     },
+                     {
+                         "id":  "ST0171",
+                         "file":  "ST0171.png"
+                     },
+                     {
+                         "id":  "ST0172",
+                         "file":  "ST0172.png"
+                     },
+                     {
+                         "id":  "ST0173",
+                         "file":  "ST0173.png"
+                     },
+                     {
+                         "id":  "ST0174",
+                         "file":  "ST0174.png"
+                     },
+                     {
+                         "id":  "ST0175",
+                         "file":  "ST0175.png"
+                     },
+                     {
+                         "id":  "ST0176",
+                         "file":  "ST0176.png"
+                     },
+                     {
+                         "id":  "ST0177",
+                         "file":  "ST0177.png"
+                     },
+                     {
+                         "id":  "ST0178",
+                         "file":  "ST0178.png"
+                     },
+                     {
+                         "id":  "ST0179",
+                         "file":  "ST0179.png"
+                     },
+                     {
+                         "id":  "ST0180",
+                         "file":  "ST0180.png"
+                     },
+                     {
+                         "id":  "ST0181",
+                         "file":  "ST0181.png"
+                     },
+                     {
+                         "id":  "ST0182",
+                         "file":  "ST0182.png"
+                     },
+                     {
+                         "id":  "ST0183",
+                         "file":  "ST0183.png"
+                     },
+                     {
+                         "id":  "ST0184",
+                         "file":  "ST0184.png"
+                     },
+                     {
+                         "id":  "ST0185",
+                         "file":  "ST0185.png"
+                     },
+                     {
+                         "id":  "ST0186",
+                         "file":  "ST0186.png"
+                     },
+                     {
+                         "id":  "ST0187",
+                         "file":  "ST0187.png"
+                     },
+                     {
+                         "id":  "ST0188",
+                         "file":  "ST0188.png"
+                     },
+                     {
+                         "id":  "ST0189",
+                         "file":  "ST0189.png"
+                     },
+                     {
+                         "id":  "ST0190",
+                         "file":  "ST0190.png"
+                     },
+                     {
+                         "id":  "ST0191",
+                         "file":  "ST0191.png"
+                     },
+                     {
+                         "id":  "ST0192",
+                         "file":  "ST0192.png"
+                     },
+                     {
+                         "id":  "ST0193",
+                         "file":  "ST0193.png"
+                     },
+                     {
+                         "id":  "ST0194",
+                         "file":  "ST0194.png"
+                     },
+                     {
+                         "id":  "ST0195",
+                         "file":  "ST0195.png"
+                     },
+                     {
+                         "id":  "ST0196",
+                         "file":  "ST0196.png"
+                     },
+                     {
+                         "id":  "ST0197",
+                         "file":  "ST0197.png"
+                     },
+                     {
+                         "id":  "ST0198",
+                         "file":  "ST0198.png"
+                     },
+                     {
+                         "id":  "ST0199",
+                         "file":  "ST0199.png"
+                     },
+                     {
+                         "id":  "ST0200",
+                         "file":  "ST0200.png"
+                     },
+                     {
+                         "id":  "ST0201",
+                         "file":  "ST0201.png"
+                     },
+                     {
+                         "id":  "ST0202",
+                         "file":  "ST0202.png"
+                     },
+                     {
+                         "id":  "ST0203",
+                         "file":  "ST0203.png"
+                     },
+                     {
+                         "id":  "ST0204",
+                         "file":  "ST0204.png"
+                     },
+                     {
+                         "id":  "ST0205",
+                         "file":  "ST0205.png"
+                     },
+                     {
+                         "id":  "ST0206",
+                         "file":  "ST0206.png"
+                     },
+                     {
+                         "id":  "ST0207",
+                         "file":  "ST0207.png"
+                     },
+                     {
+                         "id":  "ST0208",
+                         "file":  "ST0208.png"
+                     },
+                     {
+                         "id":  "ST0209",
+                         "file":  "ST0209.png"
+                     },
+                     {
+                         "id":  "ST0210",
+                         "file":  "ST0210.png"
+                     },
+                     {
+                         "id":  "ST0211",
+                         "file":  "ST0211.png"
+                     },
+                     {
+                         "id":  "ST0212",
+                         "file":  "ST0212.png"
+                     },
+                     {
+                         "id":  "ST0213",
+                         "file":  "ST0213.png"
+                     },
+                     {
+                         "id":  "ST0214",
+                         "file":  "ST0214.png"
+                     },
+                     {
+                         "id":  "ST0215",
+                         "file":  "ST0215.png"
+                     },
+                     {
+                         "id":  "ST0216",
+                         "file":  "ST0216.png"
+                     },
+                     {
+                         "id":  "ST0217",
+                         "file":  "ST0217.png"
+                     },
+                     {
+                         "id":  "ST0218",
+                         "file":  "ST0218.png"
+                     },
+                     {
+                         "id":  "ST0219",
+                         "file":  "ST0219.png"
+                     },
+                     {
+                         "id":  "ST0220",
+                         "file":  "ST0220.png"
+                     },
+                     {
+                         "id":  "ST0221",
+                         "file":  "ST0221.png"
+                     },
+                     {
+                         "id":  "ST0222",
+                         "file":  "ST0222.png"
+                     },
+                     {
+                         "id":  "ST0223",
+                         "file":  "ST0223.png"
+                     },
+                     {
+                         "id":  "ST0224",
+                         "file":  "ST0224.png"
+                     },
+                     {
+                         "id":  "ST0225",
+                         "file":  "ST0225.png"
+                     },
+                     {
+                         "id":  "ST0226",
+                         "file":  "ST0226.png"
+                     },
+                     {
+                         "id":  "ST0227",
+                         "file":  "ST0227.png"
+                     },
+                     {
+                         "id":  "ST0228",
+                         "file":  "ST0228.png"
+                     },
+                     {
+                         "id":  "ST0229",
+                         "file":  "ST0229.png"
+                     },
+                     {
+                         "id":  "ST0230",
+                         "file":  "ST0230.png"
+                     },
+                     {
+                         "id":  "ST0231",
+                         "file":  "ST0231.png"
+                     },
+                     {
+                         "id":  "ST0232",
+                         "file":  "ST0232.png"
+                     },
+                     {
+                         "id":  "ST0233",
+                         "file":  "ST0233.png"
+                     },
+                     {
+                         "id":  "ST0234",
+                         "file":  "ST0234.png"
+                     },
+                     {
+                         "id":  "ST0235",
+                         "file":  "ST0235.png"
+                     }
+                 ]
+}

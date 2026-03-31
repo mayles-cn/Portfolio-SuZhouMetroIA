@@ -1,0 +1,27 @@
+{
+  "background_color": "lightgray",
+  "font_color": "white",
+  "font_size": 8,
+  "height": 16,
+  "scroll_speed": 1,
+  "text_gap": 90,
+  "timer_interval_ms": 28,
+  "messages": [
+    {
+      "type": "信息公开",
+      "content": "请文明乘车，主动为有需要的乘客让座"
+    },
+    {
+      "type": "寻物启事",
+      "content": "如有遗失证件、手机、背包，可联系车站服务台"
+    },
+    {
+      "type": "失物招领",
+      "content": "可通过官方服务热线与站内广播协助查找认领"
+    },
+    {
+      "type": "运营提示",
+      "content": "高峰时段请提前规划出行线路并预留进站时间"
+    }
+  ]
+}

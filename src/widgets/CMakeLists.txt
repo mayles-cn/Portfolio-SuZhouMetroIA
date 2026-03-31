@@ -1,6 +1,16 @@
 set(WIDGET_SOURCES
     ${WIDGET_SOURCES}
-    ${CMAKE_CURRENT_SOURCE_DIR}/info_panel.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/info_panel.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/chat_panel_widget.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/chat_panel_widget.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/chat_bubble_widget.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/chat_bubble_widget.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/voice_assistant_widget.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/voice_assistant_widget.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/metro_map_widget.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/metro_map_widget.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/station_panel_widget.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/station_panel_widget.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/information_bar_widget.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/information_bar_widget.h
     PARENT_SCOPE
 )

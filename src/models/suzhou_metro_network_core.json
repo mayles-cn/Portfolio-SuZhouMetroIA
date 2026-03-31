@@ -1,0 +1,2014 @@
+{
+  "meta": {
+    "schema_version": "suzhou-metro-core-v2",
+    "generated_at": "2026-03-31T17:50:39",
+    "source": "suzhou-metro-network.json"
+  },
+  "layout": {
+    "bounds": {
+      "min_x": 714.77,
+      "max_x": 6818.22,
+      "min_y": 1298.91,
+      "max_y": 7573.36
+    }
+  },
+  "lines": [
+    {
+      "id": "manual-1",
+      "name": "1号线",
+      "display_name": "1号线",
+      "color": "#78BE20",
+      "stations": [
+        {
+          "id": "ST0001",
+          "name": "木渎",
+          "x": 891.1,
+          "y": 4239.46,
+          "interchange": false
+        },
+        {
+          "id": "ST0002",
+          "name": "金枫路",
+          "x": 1163.19,
+          "y": 4239.46,
+          "interchange": false
+        },
+        {
+          "id": "ST0003",
+          "name": "汾湖路",
+          "x": 1410.78,
+          "y": 4239.46,
+          "interchange": false
+        },
+        {
+          "id": "ST0004",
+          "name": "玉山路",
+          "x": 1659.69,
+          "y": 4239.46,
+          "interchange": false
+        },
+        {
+          "id": "ST0005",
+          "name": "狮子山",
+          "x": 1886.73,
+          "y": 4103.57,
+          "interchange": true
+        },
+        {
+          "id": "ST0006",
+          "name": "塔园路",
+          "x": 2045.91,
+          "y": 4018.03,
+          "interchange": false
+        },
+        {
+          "id": "ST0007",
+          "name": "滨河路",
+          "x": 2218.86,
+          "y": 4018.03,
+          "interchange": false
+        },
+        {
+          "id": "ST0008",
+          "name": "西环路",
+          "x": 2391.33,
+          "y": 4018.03,
+          "interchange": false
+        },
+        {
+          "id": "ST0009",
+          "name": "桐泾北路",
+          "x": 2566.22,
+          "y": 4018.03,
+          "interchange": false
+        },
+        {
+          "id": "ST0010",
+          "name": "广济南路",
+          "x": 2779.26,
+          "y": 4018.03,
+          "interchange": true
+        },
+        {
+          "id": "ST0011",
+          "name": "养育巷",
+          "x": 2960.88,
+          "y": 4018.03,
+          "interchange": false
+        },
+        {
+          "id": "ST0012",
+          "name": "乐桥",
+          "x": 3146.38,
+          "y": 4018.03,
+          "interchange": true
+        },
+        {
+          "id": "ST0013",
+          "name": "临顿路",
+          "x": 3368.48,
+          "y": 4018.03,
+          "interchange": true
+        },
+        {
+          "id": "ST0014",
+          "name": "相门",
+          "x": 3587.02,
+          "y": 4018.03,
+          "interchange": false
+        },
+        {
+          "id": "ST0015",
+          "name": "东环路",
+          "x": 3710.09,
+          "y": 4018.03,
+          "interchange": false
+        },
+        {
+          "id": "ST0016",
+          "name": "中央公园",
+          "x": 3842.37,
+          "y": 4018.03,
+          "interchange": true
+        },
+        {
+          "id": "ST0017",
+          "name": "星海广场",
+          "x": 4082.85,
+          "y": 4018.03,
+          "interchange": false
+        },
+        {
+          "id": "ST0018",
+          "name": "东方之门",
+          "x": 4296.46,
+          "y": 4018.03,
+          "interchange": true
+        },
+        {
+          "id": "ST0019",
+          "name": "文化博览中心",
+          "x": 4669.22,
+          "y": 4018.03,
+          "interchange": false
+        },
+        {
+          "id": "ST0020",
+          "name": "时代广场",
+          "x": 5169.29,
+          "y": 4018.03,
+          "interchange": true
+        },
+        {
+          "id": "ST0021",
+          "name": "星湖街",
+          "x": 5368.05,
+          "y": 4018.03,
+          "interchange": false
+        },
+        {
+          "id": "ST0022",
+          "name": "南施街",
+          "x": 5646.73,
+          "y": 4018.03,
+          "interchange": false
+        },
+        {
+          "id": "ST0023",
+          "name": "星塘街",
+          "x": 5819.35,
+          "y": 4018.03,
+          "interchange": true
+        },
+        {
+          "id": "ST0024",
+          "name": "钟南街",
+          "x": 6114.98,
+          "y": 4018.03,
+          "interchange": false
+        }
+      ]
+    },
+    {
+      "id": "manual-2",
+      "name": "2号线",
+      "display_name": "2号线",
+      "color": "#EF3340",
+      "stations": [
+        {
+          "id": "ST0025",
+          "name": "骑河",
+          "x": 3143.0,
+          "y": 1298.91,
+          "interchange": false
+        },
+        {
+          "id": "ST0026",
+          "name": "富翔路",
+          "x": 3143.0,
+          "y": 1490.58,
+          "interchange": false
+        },
+        {
+          "id": "ST0027",
+          "name": "高铁苏州北站",
+          "x": 3143.0,
+          "y": 1676.32,
+          "interchange": false
+        },
+        {
+          "id": "ST0028",
+          "name": "大湾",
+          "x": 3143.0,
+          "y": 1866.51,
+          "interchange": false
+        },
+        {
+          "id": "ST0029",
+          "name": "富元路",
+          "x": 3143.0,
+          "y": 2054.48,
+          "interchange": false
+        },
+        {
+          "id": "ST0030",
+          "name": "蠡口",
+          "x": 3143.0,
+          "y": 2242.45,
+          "interchange": false
+        },
+        {
+          "id": "ST0031",
+          "name": "徐图港",
+          "x": 3143.0,
+          "y": 2430.41,
+          "interchange": false
+        },
+        {
+          "id": "ST0032",
+          "name": "阳澄湖中路",
+          "x": 3143.0,
+          "y": 2608.76,
+          "interchange": true
+        },
+        {
+          "id": "ST0033",
+          "name": "陆慕",
+          "x": 3143.0,
+          "y": 2808.56,
+          "interchange": false
+        },
+        {
+          "id": "ST0034",
+          "name": "平泷路东",
+          "x": 3143.0,
+          "y": 2998.03,
+          "interchange": false
+        },
+        {
+          "id": "ST0035",
+          "name": "平河路",
+          "x": 3143.0,
+          "y": 3198.56,
+          "interchange": true
+        },
+        {
+          "id": "ST0036",
+          "name": "苏州火车站",
+          "x": 2955.88,
+          "y": 3385.67,
+          "interchange": true
+        },
+        {
+          "id": "ST0037",
+          "name": "山塘街",
+          "x": 2777.75,
+          "y": 3563.8,
+          "interchange": false
+        },
+        {
+          "id": "ST0038",
+          "name": "石路",
+          "x": 2777.75,
+          "y": 3800.07,
+          "interchange": false
+        },
+        {
+          "id": "ST0010",
+          "name": "广济南路",
+          "x": 2777.75,
+          "y": 4018.29,
+          "interchange": true
+        },
+        {
+          "id": "ST0039",
+          "name": "三香广场",
+          "x": 2777.75,
+          "y": 4257.87,
+          "interchange": false
+        },
+        {
+          "id": "ST0040",
+          "name": "劳动路",
+          "x": 2777.75,
+          "y": 4500.71,
+          "interchange": true
+        },
+        {
+          "id": "ST0041",
+          "name": "胥江路",
+          "x": 2777.75,
+          "y": 4659.08,
+          "interchange": false
+        },
+        {
+          "id": "ST0042",
+          "name": "桐泾公园",
+          "x": 2777.75,
+          "y": 4828.03,
+          "interchange": false
+        },
+        {
+          "id": "ST0043",
+          "name": "友联",
+          "x": 2777.75,
+          "y": 4998.38,
+          "interchange": false
+        },
+        {
+          "id": "ST0044",
+          "name": "盘蠡路",
+          "x": 2777.75,
+          "y": 5164.81,
+          "interchange": true
+        },
+        {
+          "id": "ST0045",
+          "name": "新家桥",
+          "x": 2777.75,
+          "y": 5484.06,
+          "interchange": false
+        },
+        {
+          "id": "ST0046",
+          "name": "石湖东路",
+          "x": 3141.76,
+          "y": 5484.06,
+          "interchange": true
+        },
+        {
+          "id": "ST0047",
+          "name": "宝带桥南",
+          "x": 3377.88,
+          "y": 5484.06,
+          "interchange": false
+        },
+        {
+          "id": "ST0048",
+          "name": "尹中路",
+          "x": 3611.72,
+          "y": 5484.06,
+          "interchange": false
+        },
+        {
+          "id": "ST0049",
+          "name": "郭巷",
+          "x": 3843.35,
+          "y": 5484.06,
+          "interchange": true
+        },
+        {
+          "id": "ST0050",
+          "name": "郭苑路",
+          "x": 4020.96,
+          "y": 5484.06,
+          "interchange": false
+        },
+        {
+          "id": "ST0051",
+          "name": "尹山湖",
+          "x": 4215.6,
+          "y": 5484.06,
+          "interchange": false
+        },
+        {
+          "id": "ST0052",
+          "name": "独墅湖南",
+          "x": 4421.32,
+          "y": 5484.06,
+          "interchange": false
+        },
+        {
+          "id": "ST0053",
+          "name": "独墅湖邻里中心",
+          "x": 4695.14,
+          "y": 5484.06,
+          "interchange": false
+        },
+        {
+          "id": "ST0054",
+          "name": "月亮湾",
+          "x": 4944.51,
+          "y": 5484.06,
+          "interchange": false
+        },
+        {
+          "id": "ST0055",
+          "name": "松涛街",
+          "x": 5170.36,
+          "y": 5484.06,
+          "interchange": true
+        },
+        {
+          "id": "ST0056",
+          "name": "金谷路",
+          "x": 5530.17,
+          "y": 5484.06,
+          "interchange": false
+        },
+        {
+          "id": "ST0057",
+          "name": "金尚路",
+          "x": 5825.66,
+          "y": 5484.06,
+          "interchange": true
+        },
+        {
+          "id": "ST0058",
+          "name": "桑田岛",
+          "x": 6111.38,
+          "y": 5484.06,
+          "interchange": true
+        }
+      ]
+    },
+    {
+      "id": "manual-3",
+      "name": "3号线",
+      "display_name": "3号线",
+      "color": "#FF8200",
+      "stations": [
+        {
+          "id": "ST0059",
+          "name": "苏州新区火车站",
+          "x": 1573.82,
+          "y": 2178.07,
+          "interchange": true
+        },
+        {
+          "id": "ST0060",
+          "name": "惠昌路",
+          "x": 1573.82,
+          "y": 2487.62,
+          "interchange": false
+        },
+        {
+          "id": "ST0061",
+          "name": "文昌路",
+          "x": 1573.82,
+          "y": 2730.21,
+          "interchange": false
+        },
+        {
+          "id": "ST0062",
+          "name": "长亭",
+          "x": 1573.82,
+          "y": 2972.22,
+          "interchange": false
+        },
+        {
+          "id": "ST0063",
+          "name": "铜墩",
+          "x": 1573.82,
+          "y": 3212.53,
+          "interchange": false
+        },
+        {
+          "id": "ST0064",
+          "name": "马运路",
+          "x": 1573.82,
+          "y": 3544.88,
+          "interchange": false
+        },
+        {
+          "id": "ST0065",
+          "name": "西津桥",
+          "x": 1885.42,
+          "y": 3544.88,
+          "interchange": true
+        },
+        {
+          "id": "ST0066",
+          "name": "何山",
+          "x": 1885.42,
+          "y": 3803.17,
+          "interchange": false
+        },
+        {
+          "id": "ST0005",
+          "name": "狮子山",
+          "x": 1885.42,
+          "y": 4106.89,
+          "interchange": true
+        },
+        {
+          "id": "ST0067",
+          "name": "狮山路",
+          "x": 1885.42,
+          "y": 4330.08,
+          "interchange": false
+        },
+        {
+          "id": "ST0068",
+          "name": "沙金桥",
+          "x": 1885.42,
+          "y": 4525.85,
+          "interchange": false
+        },
+        {
+          "id": "ST0069",
+          "name": "索山桥西",
+          "x": 1885.42,
+          "y": 4730.73,
+          "interchange": true
+        },
+        {
+          "id": "ST0070",
+          "name": "横山",
+          "x": 1885.42,
+          "y": 4940.75,
+          "interchange": false
+        },
+        {
+          "id": "ST0071",
+          "name": "横塘",
+          "x": 1885.42,
+          "y": 5164.81,
+          "interchange": false
+        },
+        {
+          "id": "ST0072",
+          "name": "石湖北",
+          "x": 2156.67,
+          "y": 5164.81,
+          "interchange": false
+        },
+        {
+          "id": "ST0073",
+          "name": "新郭",
+          "x": 2427.45,
+          "y": 5164.81,
+          "interchange": false
+        },
+        {
+          "id": "ST0044",
+          "name": "盘蠡路",
+          "x": 2777.75,
+          "y": 5164.81,
+          "interchange": true
+        },
+        {
+          "id": "ST0074",
+          "name": "宝带路",
+          "x": 3140.56,
+          "y": 5164.81,
+          "interchange": true
+        },
+        {
+          "id": "ST0075",
+          "name": "迎春路",
+          "x": 3377.46,
+          "y": 5164.81,
+          "interchange": false
+        },
+        {
+          "id": "ST0076",
+          "name": "北港路",
+          "x": 3609.05,
+          "y": 5164.81,
+          "interchange": false
+        },
+        {
+          "id": "ST0077",
+          "name": "通园路南",
+          "x": 3842.06,
+          "y": 5164.81,
+          "interchange": true
+        },
+        {
+          "id": "ST0078",
+          "name": "墅浦路北",
+          "x": 4296.46,
+          "y": 4960.6,
+          "interchange": false
+        },
+        {
+          "id": "ST0079",
+          "name": "东振路",
+          "x": 4296.46,
+          "y": 4753.02,
+          "interchange": false
+        },
+        {
+          "id": "ST0080",
+          "name": "金厍桥",
+          "x": 4296.46,
+          "y": 4503.55,
+          "interchange": true
+        },
+        {
+          "id": "ST0081",
+          "name": "李公堤西",
+          "x": 4296.46,
+          "y": 4264.63,
+          "interchange": true
+        },
+        {
+          "id": "ST0018",
+          "name": "东方之门",
+          "x": 4296.46,
+          "y": 4018.03,
+          "interchange": true
+        },
+        {
+          "id": "ST0082",
+          "name": "烟雨桥",
+          "x": 4296.46,
+          "y": 3853.18,
+          "interchange": false
+        },
+        {
+          "id": "ST0083",
+          "name": "倪浜",
+          "x": 4296.46,
+          "y": 3684.89,
+          "interchange": false
+        },
+        {
+          "id": "ST0084",
+          "name": "唐庄",
+          "x": 4296.46,
+          "y": 3504.26,
+          "interchange": true
+        },
+        {
+          "id": "ST0085",
+          "name": "跨塘",
+          "x": 4478.43,
+          "y": 3504.26,
+          "interchange": false
+        },
+        {
+          "id": "ST0086",
+          "name": "苏州园区/火车站",
+          "x": 5170.75,
+          "y": 3504.26,
+          "interchange": true
+        },
+        {
+          "id": "ST0087",
+          "name": "方湾街",
+          "x": 5367.9,
+          "y": 3504.26,
+          "interchange": false
+        },
+        {
+          "id": "ST0088",
+          "name": "丰和路",
+          "x": 5514.08,
+          "y": 3504.26,
+          "interchange": false
+        },
+        {
+          "id": "ST0089",
+          "name": "双马街",
+          "x": 5648.49,
+          "y": 3504.26,
+          "interchange": false
+        },
+        {
+          "id": "ST0090",
+          "name": "葑亭大道",
+          "x": 5822.06,
+          "y": 3504.26,
+          "interchange": true
+        },
+        {
+          "id": "ST0091",
+          "name": "戈巷街",
+          "x": 6114.69,
+          "y": 3504.26,
+          "interchange": false
+        },
+        {
+          "id": "ST0092",
+          "name": "唯亭",
+          "x": 6283.55,
+          "y": 3504.26,
+          "interchange": true
+        }
+      ]
+    },
+    {
+      "id": "manual-4",
+      "name": "4号线",
+      "display_name": "4号线",
+      "color": "#0072CE",
+      "stations": [
+        {
+          "id": "ST0093",
+          "name": "龙道浜",
+          "x": 2771.14,
+          "y": 1951.65,
+          "interchange": false
+        },
+        {
+          "id": "ST0094",
+          "name": "张庄",
+          "x": 2771.14,
+          "y": 2164.93,
+          "interchange": false
+        },
+        {
+          "id": "ST0095",
+          "name": "姚祥",
+          "x": 2771.14,
+          "y": 2374.13,
+          "interchange": false
+        },
+        {
+          "id": "ST0096",
+          "name": "活力岛",
+          "x": 2771.14,
+          "y": 2580.56,
+          "interchange": false
+        },
+        {
+          "id": "ST0097",
+          "name": "孙武纪念园",
+          "x": 2771.14,
+          "y": 2888.6,
+          "interchange": true
+        },
+        {
+          "id": "ST0098",
+          "name": "平泷路西",
+          "x": 2771.14,
+          "y": 3045.71,
+          "interchange": false
+        },
+        {
+          "id": "ST0099",
+          "name": "苏锦",
+          "x": 2771.14,
+          "y": 3207.51,
+          "interchange": true
+        },
+        {
+          "id": "ST0036",
+          "name": "苏州火车站",
+          "x": 2952.46,
+          "y": 3388.82,
+          "interchange": true
+        },
+        {
+          "id": "ST0100",
+          "name": "北寺塔",
+          "x": 3141.76,
+          "y": 3578.12,
+          "interchange": false
+        },
+        {
+          "id": "ST0101",
+          "name": "察院场",
+          "x": 3141.76,
+          "y": 3806.3,
+          "interchange": false
+        },
+        {
+          "id": "ST0012",
+          "name": "乐桥",
+          "x": 3141.76,
+          "y": 4019.46,
+          "interchange": true
+        },
+        {
+          "id": "ST0102",
+          "name": "三元坊",
+          "x": 3141.76,
+          "y": 4219.7,
+          "interchange": false
+        },
+        {
+          "id": "ST0103",
+          "name": "南门",
+          "x": 3141.76,
+          "y": 4503.67,
+          "interchange": true
+        },
+        {
+          "id": "ST0104",
+          "name": "人民桥南",
+          "x": 3141.76,
+          "y": 4738.04,
+          "interchange": false
+        },
+        {
+          "id": "ST0105",
+          "name": "团结桥",
+          "x": 3141.76,
+          "y": 4958.5,
+          "interchange": false
+        },
+        {
+          "id": "ST0074",
+          "name": "宝带路",
+          "x": 3141.76,
+          "y": 5164.77,
+          "interchange": true
+        },
+        {
+          "id": "ST0046",
+          "name": "石湖东路",
+          "x": 3141.76,
+          "y": 5484.06,
+          "interchange": true
+        },
+        {
+          "id": "ST0106",
+          "name": "红庄",
+          "x": 3141.76,
+          "y": 5720.64,
+          "interchange": true
+        },
+        {
+          "id": "ST0107",
+          "name": "清树湾",
+          "x": 3141.76,
+          "y": 5908.43,
+          "interchange": false
+        },
+        {
+          "id": "ST0108",
+          "name": "花港",
+          "x": 3141.76,
+          "y": 6123.67,
+          "interchange": false
+        },
+        {
+          "id": "ST0109",
+          "name": "江陵西路",
+          "x": 3141.76,
+          "y": 6338.73,
+          "interchange": false
+        },
+        {
+          "id": "ST0110",
+          "name": "江兴西路",
+          "x": 3141.76,
+          "y": 6555.39,
+          "interchange": false
+        },
+        {
+          "id": "ST0111",
+          "name": "流虹路",
+          "x": 3141.76,
+          "y": 6769.92,
+          "interchange": false
+        },
+        {
+          "id": "ST0112",
+          "name": "笠泽路",
+          "x": 3141.76,
+          "y": 6985.27,
+          "interchange": false
+        },
+        {
+          "id": "ST0113",
+          "name": "顾家荡",
+          "x": 3141.76,
+          "y": 7201.38,
+          "interchange": false
+        },
+        {
+          "id": "ST0114",
+          "name": "苏州湾东",
+          "x": 3141.76,
+          "y": 7416.69,
+          "interchange": false
+        },
+        {
+          "id": "ST0115",
+          "name": "松陵大道",
+          "x": 3313.91,
+          "y": 7573.36,
+          "interchange": false
+        },
+        {
+          "id": "ST0116",
+          "name": "吴江人民广场",
+          "x": 3631.39,
+          "y": 7573.36,
+          "interchange": false
+        },
+        {
+          "id": "ST0117",
+          "name": "吴江汽车站",
+          "x": 3945.52,
+          "y": 7573.36,
+          "interchange": false
+        },
+        {
+          "id": "ST0118",
+          "name": "庞金路",
+          "x": 4226.69,
+          "y": 7573.36,
+          "interchange": false
+        },
+        {
+          "id": "ST0119",
+          "name": "同里",
+          "x": 4467.56,
+          "y": 7573.36,
+          "interchange": false
+        }
+      ]
+    },
+    {
+      "id": "manual-5",
+      "name": "5号线",
+      "display_name": "5号线",
+      "color": "#E93CAC",
+      "stations": [
+        {
+          "id": "ST0120",
+          "name": "太湖香山",
+          "x": 714.77,
+          "y": 6100.18,
+          "interchange": false
+        },
+        {
+          "id": "ST0121",
+          "name": "花墩",
+          "x": 714.77,
+          "y": 5899.74,
+          "interchange": false
+        },
+        {
+          "id": "ST0122",
+          "name": "津桥",
+          "x": 714.77,
+          "y": 5699.3,
+          "interchange": false
+        },
+        {
+          "id": "ST0123",
+          "name": "胥口",
+          "x": 714.77,
+          "y": 5497.76,
+          "interchange": false
+        },
+        {
+          "id": "ST0124",
+          "name": "茅蓬路东",
+          "x": 714.77,
+          "y": 5301.66,
+          "interchange": false
+        },
+        {
+          "id": "ST0125",
+          "name": "许家桥",
+          "x": 714.77,
+          "y": 5100.13,
+          "interchange": false
+        },
+        {
+          "id": "ST0126",
+          "name": "灵岩山",
+          "x": 714.77,
+          "y": 4899.69,
+          "interchange": false
+        },
+        {
+          "id": "ST0127",
+          "name": "渎川桥",
+          "x": 836.14,
+          "y": 4733.87,
+          "interchange": false
+        },
+        {
+          "id": "ST0128",
+          "name": "大治桥",
+          "x": 1036.57,
+          "y": 4733.87,
+          "interchange": false
+        },
+        {
+          "id": "ST0129",
+          "name": "西跨塘",
+          "x": 1245.68,
+          "y": 4733.87,
+          "interchange": false
+        },
+        {
+          "id": "ST0130",
+          "name": "石城",
+          "x": 1446.21,
+          "y": 4733.87,
+          "interchange": false
+        },
+        {
+          "id": "ST0131",
+          "name": "落星桥",
+          "x": 1648.97,
+          "y": 4733.87,
+          "interchange": false
+        },
+        {
+          "id": "ST0069",
+          "name": "索山桥西",
+          "x": 1885.22,
+          "y": 4733.87,
+          "interchange": true
+        },
+        {
+          "id": "ST0132",
+          "name": "双桥",
+          "x": 2428.32,
+          "y": 4505.4,
+          "interchange": false
+        },
+        {
+          "id": "ST0040",
+          "name": "劳动路",
+          "x": 2777.39,
+          "y": 4505.4,
+          "interchange": true
+        },
+        {
+          "id": "ST0133",
+          "name": "新市桥",
+          "x": 2964.92,
+          "y": 4505.4,
+          "interchange": false
+        },
+        {
+          "id": "ST0103",
+          "name": "南门",
+          "x": 3141.42,
+          "y": 4505.4,
+          "interchange": true
+        },
+        {
+          "id": "ST0134",
+          "name": "南园北路",
+          "x": 3339.09,
+          "y": 4505.4,
+          "interchange": false
+        },
+        {
+          "id": "ST0135",
+          "name": "竹辉桥",
+          "x": 3506.38,
+          "y": 4505.4,
+          "interchange": false
+        },
+        {
+          "id": "ST0136",
+          "name": "荷花荡",
+          "x": 3673.69,
+          "y": 4505.4,
+          "interchange": false
+        },
+        {
+          "id": "ST0137",
+          "name": "黄天荡",
+          "x": 3843.01,
+          "y": 4505.4,
+          "interchange": true
+        },
+        {
+          "id": "ST0080",
+          "name": "金厍桥",
+          "x": 4296.24,
+          "y": 4505.4,
+          "interchange": true
+        },
+        {
+          "id": "ST0138",
+          "name": "星波街",
+          "x": 4426.97,
+          "y": 4505.4,
+          "interchange": false
+        },
+        {
+          "id": "ST0139",
+          "name": "李公堤南",
+          "x": 4617.74,
+          "y": 4505.4,
+          "interchange": false
+        },
+        {
+          "id": "ST0140",
+          "name": "金湖",
+          "x": 4802.08,
+          "y": 4505.4,
+          "interchange": false
+        },
+        {
+          "id": "ST0141",
+          "name": "华莲",
+          "x": 4986.94,
+          "y": 4505.4,
+          "interchange": false
+        },
+        {
+          "id": "ST0142",
+          "name": "斜塘",
+          "x": 5168.66,
+          "y": 4505.4,
+          "interchange": true
+        },
+        {
+          "id": "ST0143",
+          "name": "苏州奥体中心",
+          "x": 5685.98,
+          "y": 4379.19,
+          "interchange": true
+        },
+        {
+          "id": "ST0144",
+          "name": "方洲公园",
+          "x": 5822.06,
+          "y": 4243.11,
+          "interchange": false
+        },
+        {
+          "id": "ST0023",
+          "name": "星塘街",
+          "x": 5822.06,
+          "y": 4018.58,
+          "interchange": true
+        },
+        {
+          "id": "ST0145",
+          "name": "龙墩",
+          "x": 5822.06,
+          "y": 3840.85,
+          "interchange": false
+        },
+        {
+          "id": "ST0146",
+          "name": "东沙湖",
+          "x": 5822.06,
+          "y": 3701.68,
+          "interchange": false
+        },
+        {
+          "id": "ST0090",
+          "name": "葑亭大道",
+          "x": 5822.06,
+          "y": 3504.26,
+          "interchange": true
+        },
+        {
+          "id": "ST0147",
+          "name": "阳澄湖南",
+          "x": 5822.06,
+          "y": 3298.7,
+          "interchange": false
+        }
+      ]
+    },
+    {
+      "id": "manual-6",
+      "name": "6号线",
+      "display_name": "6号线",
+      "color": "#41B6E6",
+      "stations": [
+        {
+          "id": "ST0059",
+          "name": "苏州新区火车站",
+          "x": 1565.61,
+          "y": 2183.36,
+          "interchange": true
+        },
+        {
+          "id": "ST0148",
+          "name": "保丰",
+          "x": 1668.7,
+          "y": 2405.35,
+          "interchange": false
+        },
+        {
+          "id": "ST0149",
+          "name": "富强",
+          "x": 1746.74,
+          "y": 2578.92,
+          "interchange": false
+        },
+        {
+          "id": "ST0150",
+          "name": "长泾",
+          "x": 1824.1,
+          "y": 2748.96,
+          "interchange": false
+        },
+        {
+          "id": "ST0151",
+          "name": "白洋湾公园",
+          "x": 1889.82,
+          "y": 2894.07,
+          "interchange": true
+        },
+        {
+          "id": "ST0152",
+          "name": "金鸡墩",
+          "x": 1963.82,
+          "y": 3056.14,
+          "interchange": false
+        },
+        {
+          "id": "ST0153",
+          "name": "虎丘",
+          "x": 2034.76,
+          "y": 3209.04,
+          "interchange": false
+        },
+        {
+          "id": "ST0154",
+          "name": "青山桥浜",
+          "x": 2234.75,
+          "y": 3209.04,
+          "interchange": false
+        },
+        {
+          "id": "ST0155",
+          "name": "江星桥南",
+          "x": 2492.84,
+          "y": 3209.04,
+          "interchange": false
+        },
+        {
+          "id": "ST0099",
+          "name": "苏锦",
+          "x": 2763.8,
+          "y": 3209.04,
+          "interchange": true
+        },
+        {
+          "id": "ST0035",
+          "name": "平河路",
+          "x": 3135.54,
+          "y": 3209.04,
+          "interchange": true
+        },
+        {
+          "id": "ST0156",
+          "name": "梅巷",
+          "x": 3363.31,
+          "y": 3384.62,
+          "interchange": false
+        },
+        {
+          "id": "ST0157",
+          "name": "拙政园苏博",
+          "x": 3363.31,
+          "y": 3595.51,
+          "interchange": false
+        },
+        {
+          "id": "ST0158",
+          "name": "悬桥巷",
+          "x": 3363.31,
+          "y": 3808.26,
+          "interchange": false
+        },
+        {
+          "id": "ST0013",
+          "name": "临顿路",
+          "x": 3363.31,
+          "y": 4028.54,
+          "interchange": true
+        },
+        {
+          "id": "ST0159",
+          "name": "望星桥苏大",
+          "x": 3363.31,
+          "y": 4271.21,
+          "interchange": false
+        },
+        {
+          "id": "ST0160",
+          "name": "徐家浜",
+          "x": 3624.96,
+          "y": 4271.21,
+          "interchange": false
+        },
+        {
+          "id": "ST0161",
+          "name": "惹云桥",
+          "x": 3839.87,
+          "y": 4271.21,
+          "interchange": true
+        },
+        {
+          "id": "ST0162",
+          "name": "秋塘浜",
+          "x": 4078.96,
+          "y": 4271.21,
+          "interchange": false
+        },
+        {
+          "id": "ST0081",
+          "name": "李公堤西",
+          "x": 4292.06,
+          "y": 4271.21,
+          "interchange": true
+        },
+        {
+          "id": "ST0163",
+          "name": "琼姬墩",
+          "x": 5164.09,
+          "y": 4271.21,
+          "interchange": true
+        },
+        {
+          "id": "ST0164",
+          "name": "南施公园南",
+          "x": 5413.01,
+          "y": 4271.21,
+          "interchange": false
+        },
+        {
+          "id": "ST0143",
+          "name": "苏州奥体中心",
+          "x": 5685.96,
+          "y": 4380.29,
+          "interchange": true
+        },
+        {
+          "id": "ST0165",
+          "name": "儿童医院总院",
+          "x": 5824.78,
+          "y": 4519.11,
+          "interchange": false
+        },
+        {
+          "id": "ST0166",
+          "name": "涵青桥",
+          "x": 5824.78,
+          "y": 4714.0,
+          "interchange": false
+        },
+        {
+          "id": "ST0167",
+          "name": "金家堰",
+          "x": 5824.78,
+          "y": 4902.96,
+          "interchange": false
+        },
+        {
+          "id": "ST0168",
+          "name": "北斜步",
+          "x": 5824.78,
+          "y": 5087.44,
+          "interchange": false
+        },
+        {
+          "id": "ST0169",
+          "name": "南斜步",
+          "x": 5824.78,
+          "y": 5275.43,
+          "interchange": false
+        },
+        {
+          "id": "ST0057",
+          "name": "金尚路",
+          "x": 5824.78,
+          "y": 5484.06,
+          "interchange": true
+        },
+        {
+          "id": "ST0058",
+          "name": "桑田岛",
+          "x": 6111.38,
+          "y": 5484.06,
+          "interchange": true
+        }
+      ]
+    },
+    {
+      "id": "manual-7",
+      "name": "7号线",
+      "display_name": "7号线",
+      "color": "#A77BCA",
+      "stations": [
+        {
+          "id": "ST0170",
+          "name": "常楼",
+          "x": 3841.62,
+          "y": 1673.38,
+          "interchange": false
+        },
+        {
+          "id": "ST0171",
+          "name": "登云",
+          "x": 3841.62,
+          "y": 1852.64,
+          "interchange": false
+        },
+        {
+          "id": "ST0172",
+          "name": "蠡塘河路",
+          "x": 3841.62,
+          "y": 2027.98,
+          "interchange": false
+        },
+        {
+          "id": "ST0173",
+          "name": "春申湖东路",
+          "x": 3841.62,
+          "y": 2204.28,
+          "interchange": false
+        },
+        {
+          "id": "ST0174",
+          "name": "华元路东",
+          "x": 3841.62,
+          "y": 2382.56,
+          "interchange": false
+        },
+        {
+          "id": "ST0175",
+          "name": "白荡北",
+          "x": 3841.62,
+          "y": 2606.15,
+          "interchange": true
+        },
+        {
+          "id": "ST0176",
+          "name": "板泾",
+          "x": 3841.62,
+          "y": 2914.46,
+          "interchange": false
+        },
+        {
+          "id": "ST0177",
+          "name": "洋泾",
+          "x": 3841.62,
+          "y": 3250.56,
+          "interchange": false
+        },
+        {
+          "id": "ST0178",
+          "name": "积翠桥",
+          "x": 3841.62,
+          "y": 3720.42,
+          "interchange": false
+        },
+        {
+          "id": "ST0016",
+          "name": "中央公园",
+          "x": 3841.62,
+          "y": 4022.18,
+          "interchange": true
+        },
+        {
+          "id": "ST0161",
+          "name": "惹云桥",
+          "x": 3841.62,
+          "y": 4275.26,
+          "interchange": true
+        },
+        {
+          "id": "ST0137",
+          "name": "黄天荡",
+          "x": 3841.62,
+          "y": 4505.67,
+          "interchange": true
+        },
+        {
+          "id": "ST0179",
+          "name": "娄葑",
+          "x": 3841.62,
+          "y": 4732.67,
+          "interchange": false
+        },
+        {
+          "id": "ST0180",
+          "name": "群力",
+          "x": 3841.62,
+          "y": 4961.25,
+          "interchange": false
+        },
+        {
+          "id": "ST0077",
+          "name": "通园路南",
+          "x": 3841.62,
+          "y": 5163.87,
+          "interchange": true
+        },
+        {
+          "id": "ST0181",
+          "name": "林家潭",
+          "x": 3841.62,
+          "y": 5315.86,
+          "interchange": false
+        },
+        {
+          "id": "ST0049",
+          "name": "郭巷",
+          "x": 3841.62,
+          "y": 5483.06,
+          "interchange": true
+        },
+        {
+          "id": "ST0182",
+          "name": "尹山",
+          "x": 3841.62,
+          "y": 5720.64,
+          "interchange": false
+        },
+        {
+          "id": "ST0183",
+          "name": "金家桥南",
+          "x": 3607.94,
+          "y": 5720.64,
+          "interchange": false
+        },
+        {
+          "id": "ST0184",
+          "name": "枫津路",
+          "x": 3376.33,
+          "y": 5720.64,
+          "interchange": false
+        },
+        {
+          "id": "ST0106",
+          "name": "红庄",
+          "x": 3141.76,
+          "y": 5720.64,
+          "interchange": true
+        },
+        {
+          "id": "ST0185",
+          "name": "蠡墅",
+          "x": 2941.46,
+          "y": 5720.64,
+          "interchange": false
+        },
+        {
+          "id": "ST0186",
+          "name": "石湖莫舍",
+          "x": 2769.84,
+          "y": 5892.27,
+          "interchange": false
+        },
+        {
+          "id": "ST0187",
+          "name": "越溪",
+          "x": 2588.1,
+          "y": 6074.01,
+          "interchange": false
+        },
+        {
+          "id": "ST0188",
+          "name": "文溪路",
+          "x": 2415.83,
+          "y": 6246.28,
+          "interchange": false
+        },
+        {
+          "id": "ST0189",
+          "name": "天鹅荡路",
+          "x": 2198.97,
+          "y": 6463.14,
+          "interchange": false
+        },
+        {
+          "id": "ST0190",
+          "name": "苏州湾北",
+          "x": 1930.18,
+          "y": 6463.14,
+          "interchange": false
+        },
+        {
+          "id": "ST0191",
+          "name": "木里",
+          "x": 1610.75,
+          "y": 6463.14,
+          "interchange": false
+        }
+      ]
+    },
+    {
+      "id": "manual-8",
+      "name": "8号线",
+      "display_name": "8号线",
+      "color": "#A09200",
+      "stations": [
+        {
+          "id": "ST0065",
+          "name": "西津桥",
+          "x": 1889.16,
+          "y": 3548.35,
+          "interchange": true
+        },
+        {
+          "id": "ST0192",
+          "name": "新元",
+          "x": 1889.16,
+          "y": 3322.85,
+          "interchange": false
+        },
+        {
+          "id": "ST0193",
+          "name": "时家桥",
+          "x": 1889.16,
+          "y": 3128.56,
+          "interchange": false
+        },
+        {
+          "id": "ST0151",
+          "name": "白洋湾公园",
+          "x": 1889.16,
+          "y": 2897.47,
+          "interchange": true
+        },
+        {
+          "id": "ST0194",
+          "name": "虎北路",
+          "x": 2185.8,
+          "y": 2897.47,
+          "interchange": false
+        },
+        {
+          "id": "ST0195",
+          "name": "虎丘湿地公园",
+          "x": 2447.27,
+          "y": 2897.47,
+          "interchange": false
+        },
+        {
+          "id": "ST0097",
+          "name": "孙武纪念园",
+          "x": 2771.03,
+          "y": 2897.47,
+          "interchange": true
+        },
+        {
+          "id": "ST0196",
+          "name": "御窑",
+          "x": 2888.19,
+          "y": 2809.73,
+          "interchange": false
+        },
+        {
+          "id": "ST0197",
+          "name": "陆慕/古巷",
+          "x": 3020.91,
+          "y": 2708.2,
+          "interchange": false
+        },
+        {
+          "id": "ST0032",
+          "name": "阳澄湖中路",
+          "x": 3142.0,
+          "y": 2617.08,
+          "interchange": true
+        },
+        {
+          "id": "ST0198",
+          "name": "夏圩",
+          "x": 3517.3,
+          "y": 2617.08,
+          "interchange": false
+        },
+        {
+          "id": "ST0175",
+          "name": "白荡北",
+          "x": 3840.7,
+          "y": 2617.08,
+          "interchange": true
+        },
+        {
+          "id": "ST0199",
+          "name": "五潨泾",
+          "x": 4076.85,
+          "y": 2817.68,
+          "interchange": false
+        },
+        {
+          "id": "ST0200",
+          "name": "古香圩",
+          "x": 4076.85,
+          "y": 3079.75,
+          "interchange": false
+        },
+        {
+          "id": "ST0201",
+          "name": "南泽庄",
+          "x": 4076.85,
+          "y": 3340.25,
+          "interchange": false
+        },
+        {
+          "id": "ST0084",
+          "name": "唐庄",
+          "x": 4296.23,
+          "y": 3501.51,
+          "interchange": true
+        },
+        {
+          "id": "ST0202",
+          "name": "古楼",
+          "x": 4730.13,
+          "y": 3501.51,
+          "interchange": false
+        },
+        {
+          "id": "ST0086",
+          "name": "苏州园区/火车站",
+          "x": 5170.36,
+          "y": 3501.51,
+          "interchange": true
+        },
+        {
+          "id": "ST0203",
+          "name": "华池浜",
+          "x": 5170.36,
+          "y": 3761.61,
+          "interchange": false
+        },
+        {
+          "id": "ST0020",
+          "name": "时代广场",
+          "x": 5170.36,
+          "y": 4017.67,
+          "interchange": true
+        },
+        {
+          "id": "ST0204",
+          "name": "苏州当代美术馆",
+          "x": 5170.36,
+          "y": 4138.46,
+          "interchange": false
+        },
+        {
+          "id": "ST0163",
+          "name": "琼姬墩",
+          "x": 5170.36,
+          "y": 4270.98,
+          "interchange": true
+        },
+        {
+          "id": "ST0142",
+          "name": "斜塘",
+          "x": 5170.36,
+          "y": 4505.31,
+          "interchange": true
+        },
+        {
+          "id": "ST0205",
+          "name": "莲池桥",
+          "x": 5170.36,
+          "y": 4831.39,
+          "interchange": false
+        },
+        {
+          "id": "ST0206",
+          "name": "仁爱路",
+          "x": 5170.36,
+          "y": 5160.81,
+          "interchange": false
+        },
+        {
+          "id": "ST0055",
+          "name": "松涛街",
+          "x": 5170.36,
+          "y": 5484.06,
+          "interchange": true
+        },
+        {
+          "id": "ST0207",
+          "name": "裕新路",
+          "x": 5170.36,
+          "y": 5760.01,
+          "interchange": false
+        },
+        {
+          "id": "ST0208",
+          "name": "车坊",
+          "x": 5170.36,
+          "y": 6045.6,
+          "interchange": false
+        }
+      ]
+    },
+    {
+      "id": "manual-11",
+      "name": "11号线",
+      "display_name": "11号线",
+      "color": "#F1C6A7",
+      "stations": [
+        {
+          "id": "ST0092",
+          "name": "唯亭",
+          "x": 6283.55,
+          "y": 3504.26,
+          "interchange": true
+        },
+        {
+          "id": "ST0209",
+          "name": "草鞋山",
+          "x": 6556.61,
+          "y": 3504.26,
+          "interchange": false
+        },
+        {
+          "id": "ST0210",
+          "name": "阳澄湖东",
+          "x": 6818.22,
+          "y": 3504.26,
+          "interchange": false
+        },
+        {
+          "id": "ST0211",
+          "name": "正仪",
+          "x": 6818.22,
+          "y": 3664.17,
+          "interchange": false
+        },
+        {
+          "id": "ST0212",
+          "name": "莲湖公园",
+          "x": 6818.22,
+          "y": 3806.04,
+          "interchange": false
+        },
+        {
+          "id": "ST0213",
+          "name": "祖冲之公园",
+          "x": 6818.22,
+          "y": 3941.54,
+          "interchange": false
+        },
+        {
+          "id": "ST0214",
+          "name": "昆山文化艺术中心",
+          "x": 6818.22,
+          "y": 4084.58,
+          "interchange": false
+        },
+        {
+          "id": "ST0215",
+          "name": "共青",
+          "x": 6818.22,
+          "y": 4222.24,
+          "interchange": false
+        },
+        {
+          "id": "ST0216",
+          "name": "江浦",
+          "x": 6818.22,
+          "y": 4359.82,
+          "interchange": false
+        },
+        {
+          "id": "ST0217",
+          "name": "白马泾",
+          "x": 6818.22,
+          "y": 4494.79,
+          "interchange": false
+        },
+        {
+          "id": "ST0218",
+          "name": "玉山广场",
+          "x": 6818.22,
+          "y": 4632.45,
+          "interchange": false
+        },
+        {
+          "id": "ST0219",
+          "name": "绣衣",
+          "x": 6818.22,
+          "y": 4775.35,
+          "interchange": false
+        },
+        {
+          "id": "ST0220",
+          "name": "昆山城市广场",
+          "x": 6818.22,
+          "y": 4915.82,
+          "interchange": false
+        },
+        {
+          "id": "ST0221",
+          "name": "金浦大桥东",
+          "x": 6818.22,
+          "y": 5049.34,
+          "interchange": false
+        },
+        {
+          "id": "ST0222",
+          "name": "顺帆北路",
+          "x": 6818.22,
+          "y": 5189.62,
+          "interchange": false
+        },
+        {
+          "id": "ST0223",
+          "name": "鱼池泾",
+          "x": 6818.22,
+          "y": 5327.29,
+          "interchange": false
+        },
+        {
+          "id": "ST0224",
+          "name": "白河潭",
+          "x": 6818.22,
+          "y": 5467.75,
+          "interchange": false
+        },
+        {
+          "id": "ST0225",
+          "name": "兵希",
+          "x": 6818.22,
+          "y": 5600.39,
+          "interchange": false
+        },
+        {
+          "id": "ST0226",
+          "name": "夏驾河公园",
+          "x": 6818.22,
+          "y": 5745.52,
+          "interchange": false
+        },
+        {
+          "id": "ST0227",
+          "name": "盛庄",
+          "x": 6818.22,
+          "y": 5883.34,
+          "interchange": false
+        },
+        {
+          "id": "ST0228",
+          "name": "章基路南",
+          "x": 6818.22,
+          "y": 6015.55,
+          "interchange": false
+        },
+        {
+          "id": "ST0229",
+          "name": "夏桥",
+          "x": 6818.22,
+          "y": 6153.31,
+          "interchange": false
+        },
+        {
+          "id": "ST0230",
+          "name": "神童泾",
+          "x": 6818.22,
+          "y": 6298.72,
+          "interchange": false
+        },
+        {
+          "id": "ST0231",
+          "name": "菉葭",
+          "x": 6818.22,
+          "y": 6432.59,
+          "interchange": false
+        },
+        {
+          "id": "ST0232",
+          "name": "花桥博览中心",
+          "x": 6818.22,
+          "y": 6568.83,
+          "interchange": false
+        },
+        {
+          "id": "ST0233",
+          "name": "集善",
+          "x": 6818.22,
+          "y": 6712.09,
+          "interchange": false
+        },
+        {
+          "id": "ST0234",
+          "name": "花溪公园",
+          "x": 6818.22,
+          "y": 6853.36,
+          "interchange": false
+        },
+        {
+          "id": "ST0235",
+          "name": "花桥",
+          "x": 6818.22,
+          "y": 6988.31,
+          "interchange": false
+        }
+      ]
+    }
+  ]
+}
