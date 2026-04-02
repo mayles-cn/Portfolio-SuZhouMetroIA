@@ -12,5 +12,13 @@ set(WIDGET_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/station_panel_widget.h
     ${CMAKE_CURRENT_SOURCE_DIR}/information_bar_widget.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/information_bar_widget.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/settlement_widget.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/settlement_widget.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/text_prompt_widget.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/text_prompt_widget.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/model_settings_widget.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/model_settings_widget.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/route_plan_widget.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/route_plan_widget.h
     PARENT_SCOPE
 )

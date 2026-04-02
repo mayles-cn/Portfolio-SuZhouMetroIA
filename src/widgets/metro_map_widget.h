@@ -14,6 +14,8 @@ class QMouseEvent;
 class QButtonGroup;
 class QVariantAnimation;
 class QTimer;
+class QSpinBox;
+class QPushButton;
 class QWidget;
 class StationPanelWidget;
 
@@ -24,6 +26,8 @@ class MetroMapWidget final : public QWidget
 public:
     explicit MetroMapWidget(QWidget* parent = nullptr);
     void resetInteractiveView();
+    void focusStationFromText(const QString& text);
+    void setAutoSetCurrentStationOnSelection(bool enabled);
 
 protected:
     void paintEvent(QPaintEvent* event) override;
@@ -33,10 +37,20 @@ protected:
     void mouseMoveEvent(QMouseEvent* event) override;
     void mouseReleaseEvent(QMouseEvent* event) override;
 
+signals:
+    void stationSelected(const QString& stationName);
+    void currentStationChanged(const QString& stationName);
+    void goToSettlementRequested(const QString& targetStationName);
+    void routeSettlementRequested(const QString& fromStationName, const QString& toStationName,
+                                  int unitFareYuan);
+    void quickPurchaseRequested(const QString& ticketType, int unitFareYuan, int quantity);
+
 private:
     void buildLineSelector();
+    void buildQuickBuyPanel();
     void layoutSelectorPanel();
     void layoutStationPanel();
+    void layoutQuickBuyPanel();
     void onLineButtonClicked(int lineIndex);
     QRectF focusedBoundsForLine(int lineIndex) const;
     QRectF focusedBoundsForStation(const QPointF& stationPosition) const;
@@ -47,12 +61,19 @@ private:
     QStringList collectStationLines(const QString& stationId) const;
     void drawLineStartBadges(QPainter& painter, const QRectF& drawRect);
     void drawFocusedStationMap(QPainter& painter, const QRectF& drawRect);
+    void drawSelectedGoToMarker(QPainter& painter, const QRectF& drawRect);
+    void drawCurrentStationMarker(QPainter& painter, const QRectF& drawRect);
     void drawCompassOverlay(QPainter& painter, const QRectF& drawRect);
+    void updateStationPanelSelection();
+    bool locateStationByName(const QString& stationName, szmetro::MetroDrawStation* outStation) const;
+    int estimateTravelMinutes(double distanceKm, const QStringList& lineNames) const;
     QString resolveStationMapDirectory();
     QImage loadStationMap(const QString& stationId);
     void restartInactivityTimer();
     void initializeMapView();
     void initializeRandomCurrentStation();
+    QRectF selectedGoToBadgeRect(const QRectF& drawRect) const;
+    void emitRouteSettlementForSelected();
 
     QRectF calculateDrawRect() const;
     QPointF mapToWidget(const QPointF& point, const QRectF& drawRect) const;
@@ -61,7 +82,11 @@ private:
     szmetro::MetroNetworkData networkData_;
     QString loadError_;
     QWidget* selectorPanel_ = nullptr;
+    QWidget* quickBuyPanel_ = nullptr;
     StationPanelWidget* stationPanel_ = nullptr;
+    QSpinBox* customFareSpin_ = nullptr;
+    QPushButton* customFareBuyButton_ = nullptr;
+    QPushButton* dayPassBuyButton_ = nullptr;
     QButtonGroup* lineButtonGroup_ = nullptr;
     QVariantAnimation* viewAnimation_ = nullptr;
     QRectF viewBounds_;
@@ -73,6 +98,8 @@ private:
     QStringList selectedStationLines_;
     QString currentStationId_;
     QString currentStationName_;
+    QPointF currentStationPosition_;
+    bool autoSetCurrentStationOnSelection_ = false;
     qreal zoomScale_ = 1.0;
     QPointF panOffset_;
     bool middleDragging_ = false;

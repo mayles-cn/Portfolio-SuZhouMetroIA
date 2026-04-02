@@ -1,5 +1,6 @@
 #pragma once
 
+#include <QByteArray>
 #include <QWidget>
 
 class QMouseEvent;
@@ -14,6 +15,11 @@ class VoiceAssistantWidget final : public QWidget
 
 public:
     explicit VoiceAssistantWidget(QWidget* parent = nullptr);
+
+signals:
+    void listeningStarted();
+    void listeningStopped();
+    void audioChunkCaptured(const QByteArray& pcm16Chunk);
 
 protected:
     void paintEvent(QPaintEvent* event) override;
@@ -32,6 +38,7 @@ private:
     void startListening();
     void stopListening();
     void handleAudioReadyRead();
+    QByteArray convertToPcm16(const QByteArray& rawData) const;
     void tickAnimation();
 
     bool pressed_ = false;
@@ -45,4 +52,6 @@ private:
     QAudioSource* audioSource_ = nullptr;
     QIODevice* audioDevice_ = nullptr;
     AudioSampleKind sampleKind_ = AudioSampleKind::Unknown;
+    int channelCount_ = 1;
+    int sampleRate_ = 16000;
 };

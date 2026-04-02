@@ -3,22 +3,27 @@
 #include "widgets/station_panel_widget.h"
 
 #include <QAbstractButton>
+#include <QAbstractSpinBox>
 #include <QButtonGroup>
 #include <QCoreApplication>
 #include <QDir>
 #include <QFont>
 #include <QFontMetricsF>
+#include <QGridLayout>
 #include <QHBoxLayout>
 #include <QImage>
+#include <QLabel>
 #include <QMouseEvent>
 #include <QPainter>
 #include <QPainterPath>
 #include <QPaintEvent>
+#include <QPixmap>
 #include <QPolygon>
 #include <QPushButton>
 #include <QRandomGenerator>
 #include <QResizeEvent>
 #include <QSet>
+#include <QSpinBox>
 #include <QTimer>
 #include <QVariantAnimation>
 #include <QVector>
@@ -35,14 +40,14 @@ constexpr int kOuterMargin = 20;
 constexpr int kPanelHeight = 26;
 constexpr int kPanelGap = 14;
 constexpr int kStationPanelWidth = 280;
-constexpr int kStationPanelHeight = 146;
+constexpr int kStationPanelHeight = 214;
 constexpr int kLineDrawWidthFocused = 6;
 constexpr int kLineDrawWidthOverview = 3;
 constexpr int kGrayLineDrawWidth = 2;
 constexpr qreal kStationRadius = 3.2;
 constexpr qreal kInterchangeRadius = 4.2;
 constexpr qreal kStationPickRadius = 10.0;
-constexpr int kMapInactivityMs = 5000;
+constexpr int kMapInactivityMs = 10000;
 constexpr qreal kFocusMapMargin = 6.0;
 constexpr qreal kFocusMapMinRadius = 56.0;
 constexpr qreal kFocusMapRadiusRatio = 0.78;
@@ -106,6 +111,78 @@ void drawGridBackdrop(QPainter& painter, const QRectF& drawRect)
     painter.drawRect(drawRect.adjusted(0.5, 0.5, -0.5, -0.5));
     painter.restore();
 }
+
+QString normalizeStationKeyForLinkage(QString text)
+{
+    text = text.trimmed();
+    if (text.isEmpty())
+    {
+        return {};
+    }
+
+    text.replace(QStringLiteral("地铁站"), QStringLiteral(""));
+    text.replace(QStringLiteral("站点"), QStringLiteral(""));
+    text.replace(QStringLiteral("地铁"), QStringLiteral(""));
+    if (text.endsWith(QStringLiteral("站")) && text.size() > 1)
+    {
+        text.chop(1);
+    }
+    return text;
+}
+
+bool textContainsStationName(const QString& text, const QString& stationName)
+{
+    if (text.isEmpty() || stationName.isEmpty())
+    {
+        return false;
+    }
+    if (text.contains(stationName))
+    {
+        return true;
+    }
+    if (text.contains(stationName + QStringLiteral("站")))
+    {
+        return true;
+    }
+
+    const QString normalizedText = normalizeStationKeyForLinkage(text);
+    const QString normalizedStation = normalizeStationKeyForLinkage(stationName);
+    if (normalizedText.isEmpty() || normalizedStation.isEmpty())
+    {
+        return false;
+    }
+    return normalizedText.contains(normalizedStation);
+}
+
+bool shouldDirectOpenSettlementFromText(const QString& text)
+{
+    const QString query = text.trimmed();
+    if (query.isEmpty())
+    {
+        return false;
+    }
+
+    if (query.contains(QStringLiteral("买票")) || query.contains(QStringLiteral("购票")))
+    {
+        return true;
+    }
+
+    const bool hasGoIntent = query.contains(QStringLiteral("去")) ||
+                             query.contains(QStringLiteral("到")) ||
+                             query.contains(QStringLiteral("前往"));
+    if (!hasGoIntent)
+    {
+        return false;
+    }
+
+    // 纯查询类提问不自动跳转结算，避免误触。
+    if (query.contains(QStringLiteral("票价")) || query.contains(QStringLiteral("换乘")) ||
+        query.contains(QStringLiteral("线路")))
+    {
+        return false;
+    }
+    return true;
+}
 }
 
 MetroMapWidget::MetroMapWidget(QWidget* parent)
@@ -134,10 +211,14 @@ MetroMapWidget::MetroMapWidget(QWidget* parent)
 
     buildLineSelector();
     layoutSelectorPanel();
+    buildQuickBuyPanel();
+    layoutQuickBuyPanel();
 
     stationPanel_ = new StationPanelWidget(this);
     stationPanel_->setFixedSize(kStationPanelWidth, kStationPanelHeight);
     layoutStationPanel();
+    connect(stationPanel_, &StationPanelWidget::goToHereClicked, this,
+            [this](const QString&) { emitRouteSettlementForSelected(); });
 
     fareService_.rebuild(networkData_.lines());
     initializeRandomCurrentStation();
@@ -157,6 +238,13 @@ MetroMapWidget::MetroMapWidget(QWidget* parent)
         initializeMapView();
     });
     restartInactivityTimer();
+
+    QTimer::singleShot(0, this, [this]() {
+        if (!currentStationName_.isEmpty())
+        {
+            emit currentStationChanged(currentStationName_);
+        }
+    });
 }
 
 void MetroMapWidget::paintEvent(QPaintEvent* event)
@@ -280,7 +368,9 @@ void MetroMapWidget::paintEvent(QPaintEvent* event)
         painter.restore();
     }
 
+    drawSelectedGoToMarker(painter, drawRect);
     drawStationLabels(painter, drawRect);
+    drawCurrentStationMarker(painter, drawRect);
     drawCompassOverlay(painter, drawRect);
 
     // 当前选中线路提示：在被选按钮上方绘制倒三角和文案。
@@ -324,6 +414,7 @@ void MetroMapWidget::resizeEvent(QResizeEvent* event)
     QWidget::resizeEvent(event);
     layoutSelectorPanel();
     layoutStationPanel();
+    layoutQuickBuyPanel();
 }
 
 void MetroMapWidget::resetInteractiveView()
@@ -332,6 +423,89 @@ void MetroMapWidget::resetInteractiveView()
     panOffset_ = QPointF(0.0, 0.0);
     middleDragging_ = false;
     unsetCursor();
+}
+
+void MetroMapWidget::focusStationFromText(const QString& text)
+{
+    const QString query = text.trimmed();
+    if (query.isEmpty() || networkData_.isEmpty())
+    {
+        return;
+    }
+
+    QSet<QString> seenIds;
+    const auto& lines = networkData_.lines();
+    szmetro::MetroDrawStation foundStation;
+    bool found = false;
+
+    for (const szmetro::MetroDrawLine& line : lines)
+    {
+        for (const szmetro::MetroDrawStation& station : line.stations)
+        {
+            if (station.id.isEmpty() || seenIds.contains(station.id))
+            {
+                continue;
+            }
+            seenIds.insert(station.id);
+            if (textContainsStationName(query, station.name))
+            {
+                foundStation = station;
+                found = true;
+                break;
+            }
+        }
+        if (found)
+        {
+            break;
+        }
+    }
+
+    if (!found)
+    {
+        return;
+    }
+
+    restartInactivityTimer();
+    selectedStationId_ = foundStation.id;
+    selectedStationName_ = foundStation.name;
+    selectedStationPosition_ = foundStation.position;
+    selectedStationInterchange_ = foundStation.interchange;
+    selectedStationLines_ = collectStationLines(foundStation.id);
+    if (autoSetCurrentStationOnSelection_)
+    {
+        currentStationId_ = foundStation.id;
+        currentStationName_ = foundStation.name;
+        currentStationPosition_ = foundStation.position;
+        emit currentStationChanged(currentStationName_);
+    }
+
+    if (lineButtonGroup_ != nullptr)
+    {
+        if (QAbstractButton* allButton = lineButtonGroup_->button(-1))
+        {
+            allButton->setChecked(true);
+        }
+    }
+    selectedLineIndex_ = -1;
+
+    if (stationPanel_ != nullptr)
+    {
+        updateStationPanelSelection();
+    }
+
+    resetInteractiveView();
+    startViewTransition(focusedBoundsForStation(foundStation.position));
+    update();
+    emit stationSelected(selectedStationName_);
+    if (shouldDirectOpenSettlementFromText(query))
+    {
+        emitRouteSettlementForSelected();
+    }
+}
+
+void MetroMapWidget::setAutoSetCurrentStationOnSelection(bool enabled)
+{
+    autoSetCurrentStationOnSelection_ = enabled;
 }
 
 void MetroMapWidget::restartInactivityTimer()
@@ -370,6 +544,7 @@ void MetroMapWidget::initializeRandomCurrentStation()
 {
     currentStationId_.clear();
     currentStationName_.clear();
+    currentStationPosition_ = QPointF();
 
     QVector<szmetro::MetroDrawStation> uniqueStations;
     QSet<QString> seenIds;
@@ -392,17 +567,20 @@ void MetroMapWidget::initializeRandomCurrentStation()
         {
             stationPanel_->clearSelection(QStringLiteral("-"));
         }
+        emit currentStationChanged(QStringLiteral("-"));
         return;
     }
 
     const int randomIndex = QRandomGenerator::global()->bounded(uniqueStations.size());
     currentStationId_ = uniqueStations[randomIndex].id;
     currentStationName_ = uniqueStations[randomIndex].name;
+    currentStationPosition_ = uniqueStations[randomIndex].position;
 
     if (stationPanel_ != nullptr)
     {
         stationPanel_->clearSelection(currentStationName_);
     }
+    emit currentStationChanged(currentStationName_);
 }
 
 void MetroMapWidget::wheelEvent(QWheelEvent* event)
@@ -447,6 +625,12 @@ void MetroMapWidget::mousePressEvent(QMouseEvent* event)
     if (event->button() == Qt::LeftButton)
     {
         restartInactivityTimer();
+        if (selectedGoToBadgeRect(calculateDrawRect()).contains(event->position()))
+        {
+            emitRouteSettlementForSelected();
+            event->accept();
+            return;
+        }
         szmetro::MetroDrawStation station;
         QStringList stationLines;
         if (pickStationAt(event->position(), &station, &stationLines))
@@ -456,17 +640,23 @@ void MetroMapWidget::mousePressEvent(QMouseEvent* event)
             selectedStationPosition_ = station.position;
             selectedStationInterchange_ = station.interchange;
             selectedStationLines_ = stationLines;
+            if (autoSetCurrentStationOnSelection_)
+            {
+                currentStationId_ = station.id;
+                currentStationName_ = station.name;
+                currentStationPosition_ = station.position;
+                emit currentStationChanged(currentStationName_);
+            }
 
             if (stationPanel_ != nullptr)
             {
-                const int fare = fareService_.calculateFareYuan(currentStationId_, selectedStationId_);
-                stationPanel_->setSelectionInfo(currentStationName_, selectedStationName_,
-                                                selectedStationLines_, fare);
+                updateStationPanelSelection();
             }
 
             resetInteractiveView();
             startViewTransition(focusedBoundsForStation(station.position));
             update();
+            emit stationSelected(selectedStationName_);
             event->accept();
             return;
         }
@@ -581,6 +771,149 @@ void MetroMapWidget::buildLineSelector()
             &MetroMapWidget::onLineButtonClicked);
 }
 
+void MetroMapWidget::buildQuickBuyPanel()
+{
+    quickBuyPanel_ = new QWidget(this);
+    quickBuyPanel_->setAttribute(Qt::WA_StyledBackground, true);
+    quickBuyPanel_->setStyleSheet(
+        "background-color: rgba(232,236,242,238);"
+        "border-radius: 10px;");
+
+    auto* root = new QVBoxLayout(quickBuyPanel_);
+    root->setContentsMargins(10, 10, 10, 10);
+    root->setSpacing(6);
+
+    auto* title = new QLabel(QStringLiteral("快速购票"), quickBuyPanel_);
+    title->setStyleSheet(
+        "color: rgba(22,58,108,228);"
+        "font: 700 13px 'Microsoft YaHei';"
+        "background: transparent;");
+    root->addWidget(title);
+
+    const QVector<int> quickAmounts = {2, 3, 4, 5, 6, 7};
+    for (const int amount : quickAmounts)
+    {
+        auto* btn = new QPushButton(QStringLiteral("%1元单程").arg(amount), quickBuyPanel_);
+        btn->setCursor(Qt::PointingHandCursor);
+        btn->setMinimumHeight(30);
+        btn->setStyleSheet(
+            "QPushButton {"
+            "background-color: rgba(245,248,253,245);"
+            "color: rgba(38,68,111,230);"
+            "border: none;"
+            "border-radius: 6px;"
+            "font: 11px 'Microsoft YaHei';"
+            "padding: 4px 8px;"
+            "}"
+            "QPushButton:hover { background-color: rgba(236,243,252,250); }"
+            "QPushButton:pressed { background-color: rgba(228,236,248,252); }");
+        connect(btn, &QPushButton::clicked, this, [this, amount]() {
+            emit quickPurchaseRequested(QStringLiteral("单程票"), amount, 1);
+        });
+        root->addWidget(btn);
+    }
+
+    auto* customRow = new QHBoxLayout();
+    customRow->setContentsMargins(0, 0, 0, 0);
+    customRow->setSpacing(4);
+    auto* minusButton = new QPushButton(QStringLiteral("-"), quickBuyPanel_);
+    minusButton->setCursor(Qt::PointingHandCursor);
+    minusButton->setMinimumHeight(30);
+    minusButton->setMinimumWidth(30);
+    minusButton->setStyleSheet(
+        "QPushButton {"
+        "background-color: rgba(236,243,252,245);"
+        "color: rgba(38,68,111,232);"
+        "border: none;"
+        "border-radius: 6px;"
+        "font: 700 14px 'Microsoft YaHei';"
+        "}"
+        "QPushButton:pressed { background-color: rgba(228,236,248,252); }");
+    customFareSpin_ = new QSpinBox(quickBuyPanel_);
+    customFareSpin_->setRange(2, 13);
+    customFareSpin_->setValue(8);
+    customFareSpin_->setSuffix(QStringLiteral(" 元"));
+    customFareSpin_->setButtonSymbols(QAbstractSpinBox::NoButtons);
+    customFareSpin_->setStyleSheet(
+        "QSpinBox {"
+        "background-color: rgba(245,248,253,245);"
+        "color: rgba(38,68,111,230);"
+        "border: none;"
+        "border-radius: 6px;"
+        "font: 700 11px 'Microsoft YaHei';"
+        "padding: 4px 6px;"
+        "}");
+    auto* plusButton = new QPushButton(QStringLiteral("+"), quickBuyPanel_);
+    plusButton->setCursor(Qt::PointingHandCursor);
+    plusButton->setMinimumHeight(30);
+    plusButton->setMinimumWidth(30);
+    plusButton->setStyleSheet(
+        "QPushButton {"
+        "background-color: rgba(236,243,252,245);"
+        "color: rgba(38,68,111,232);"
+        "border: none;"
+        "border-radius: 6px;"
+        "font: 700 14px 'Microsoft YaHei';"
+        "}"
+        "QPushButton:pressed { background-color: rgba(228,236,248,252); }");
+    customFareBuyButton_ = new QPushButton(QStringLiteral("按此票价购票"), quickBuyPanel_);
+    customFareBuyButton_->setCursor(Qt::PointingHandCursor);
+    customFareBuyButton_->setMinimumHeight(30);
+    customFareBuyButton_->setStyleSheet(
+        "QPushButton {"
+        "background-color: rgba(245,248,253,245);"
+        "color: rgba(38,68,111,230);"
+        "border: none;"
+        "border-radius: 6px;"
+        "font: 11px 'Microsoft YaHei';"
+        "padding: 4px 8px;"
+        "}"
+        "QPushButton:hover { background-color: rgba(236,243,252,250); }"
+        "QPushButton:pressed { background-color: rgba(228,236,248,252); }");
+    connect(minusButton, &QPushButton::clicked, this, [this]() {
+        if (customFareSpin_ != nullptr)
+        {
+            customFareSpin_->setValue(qMax(customFareSpin_->minimum(), customFareSpin_->value() - 1));
+        }
+    });
+    connect(plusButton, &QPushButton::clicked, this, [this]() {
+        if (customFareSpin_ != nullptr)
+        {
+            customFareSpin_->setValue(qMin(customFareSpin_->maximum(), customFareSpin_->value() + 1));
+        }
+    });
+    connect(customFareBuyButton_, &QPushButton::clicked, this, [this]() {
+        if (customFareSpin_ != nullptr)
+        {
+            emit quickPurchaseRequested(QStringLiteral("单程票"), customFareSpin_->value(), 1);
+        }
+    });
+    customRow->addWidget(minusButton, 0);
+    customRow->addWidget(customFareSpin_, 1);
+    customRow->addWidget(plusButton, 0);
+    root->addLayout(customRow);
+    root->addWidget(customFareBuyButton_);
+
+    dayPassBuyButton_ = new QPushButton(QStringLiteral("旅游日票\n25元"), quickBuyPanel_);
+    dayPassBuyButton_->setCursor(Qt::PointingHandCursor);
+    dayPassBuyButton_->setMinimumHeight(48);
+    dayPassBuyButton_->setStyleSheet(
+        "QPushButton {"
+        "background-color: rgba(250,247,240,246);"
+        "color: rgba(112,84,32,232);"
+        "border: none;"
+        "border-radius: 6px;"
+        "font: 10px 'Microsoft YaHei';"
+        "padding: 5px 8px;"
+        "}"
+        "QPushButton:hover { background-color: rgba(248,242,227,252); }"
+        "QPushButton:pressed { background-color: rgba(241,233,214,252); }");
+    connect(dayPassBuyButton_, &QPushButton::clicked, this, [this]() {
+        emit quickPurchaseRequested(QStringLiteral("单日畅行旅游票"), 25, 1);
+    });
+    root->addWidget(dayPassBuyButton_);
+}
+
 void MetroMapWidget::layoutSelectorPanel()
 {
     if (selectorPanel_ == nullptr)
@@ -606,6 +939,21 @@ void MetroMapWidget::layoutStationPanel()
     const int x = qMax(kOuterMargin, static_cast<int>(drawRect.right()) - kStationPanelWidth);
     const int y = kOuterMargin;
     stationPanel_->setGeometry(x, y, kStationPanelWidth, kStationPanelHeight);
+}
+
+void MetroMapWidget::layoutQuickBuyPanel()
+{
+    if (quickBuyPanel_ == nullptr)
+    {
+        return;
+    }
+
+    const int x = kOuterMargin + 0;
+    const int y = kOuterMargin + 380;
+    const int w = 100;
+    const int h = 388;
+    quickBuyPanel_->setGeometry(x, y, w, h);
+    quickBuyPanel_->raise();
 }
 
 void MetroMapWidget::onLineButtonClicked(int lineIndex)
@@ -749,6 +1097,112 @@ QStringList MetroMapWidget::collectStationLines(const QString& stationId) const
     return result;
 }
 
+void MetroMapWidget::updateStationPanelSelection()
+{
+    if (stationPanel_ == nullptr)
+    {
+        return;
+    }
+    if (selectedStationId_.isEmpty())
+    {
+        stationPanel_->clearSelection(currentStationName_);
+        return;
+    }
+
+    const int fare = fareService_.calculateFareYuan(currentStationId_, selectedStationId_);
+    const double distanceKm =
+        fareService_.estimateDistanceKm(currentStationId_, selectedStationId_);
+    const int etaMinutes = estimateTravelMinutes(distanceKm, selectedStationLines_);
+    stationPanel_->setSelectionInfo(currentStationName_, selectedStationName_, selectedStationLines_,
+                                    fare, distanceKm, etaMinutes);
+}
+
+bool MetroMapWidget::locateStationByName(const QString& stationName,
+                                         szmetro::MetroDrawStation* outStation) const
+{
+    const QString name = stationName.trimmed();
+    if (name.isEmpty())
+    {
+        return false;
+    }
+
+    QSet<QString> seenIds;
+    for (const szmetro::MetroDrawLine& line : networkData_.lines())
+    {
+        for (const szmetro::MetroDrawStation& station : line.stations)
+        {
+            if (station.id.isEmpty() || seenIds.contains(station.id))
+            {
+                continue;
+            }
+            seenIds.insert(station.id);
+            if (station.name == name)
+            {
+                if (outStation != nullptr)
+                {
+                    *outStation = station;
+                }
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+int MetroMapWidget::estimateTravelMinutes(double distanceKm, const QStringList& lineNames) const
+{
+    if (distanceKm < 0.0)
+    {
+        return -1;
+    }
+
+    // 以城市地铁含停站平均速度约 33km/h 估算，并对换乘场景附加步行耗时。
+    const int runningMinutes = static_cast<int>(std::ceil(distanceKm / 0.55));
+    const int transferPenalty = qMax(0, lineNames.size() - 1) * 3;
+    return qMax(1, runningMinutes + 2 + transferPenalty);
+}
+
+QRectF MetroMapWidget::selectedGoToBadgeRect(const QRectF& drawRect) const
+{
+    if (selectedStationId_.isEmpty())
+    {
+        return {};
+    }
+
+    const QPointF center = mapToWidget(selectedStationPosition_, drawRect);
+    if (!drawRect.adjusted(-70.0, -70.0, 70.0, 70.0).contains(center))
+    {
+        return {};
+    }
+
+    static QPixmap gotoIcon;
+    if (gotoIcon.isNull())
+    {
+        gotoIcon.load(QStringLiteral(":/icons/goto.ico"));
+    }
+    const qreal iconAspect = gotoIcon.isNull() ? 1.0
+                                               : static_cast<qreal>(gotoIcon.width()) /
+                                                     qMax(1.0, static_cast<qreal>(gotoIcon.height()));
+    const qreal iconHeight = qBound(16.0, 22.0 * zoomScale_, 30.0);
+    const qreal iconWidth = iconHeight * iconAspect;
+    const QPointF anchor(center.x() + 15.0, center.y() - 26.0);
+    const QRectF iconRect(anchor.x(), anchor.y(), iconWidth, iconHeight);
+
+    QRectF badgeRect = iconRect.adjusted(-36.0, -2.0, 50.0, 2.0);
+    badgeRect.setHeight(qMax(badgeRect.height(), 20.0));
+    return badgeRect;
+}
+
+void MetroMapWidget::emitRouteSettlementForSelected()
+{
+    if (selectedStationName_.isEmpty())
+    {
+        return;
+    }
+    const int fare = fareService_.calculateFareYuan(currentStationId_, selectedStationId_);
+    emit routeSettlementRequested(currentStationName_, selectedStationName_, qMax(2, fare));
+}
+
 bool MetroMapWidget::pickStationAt(const QPointF& widgetPos, szmetro::MetroDrawStation* outStation,
                                    QStringList* outLines) const
 {
@@ -805,6 +1259,44 @@ bool MetroMapWidget::pickStationAt(const QPointF& widgetPos, szmetro::MetroDrawS
         *outLines = collectStationLines(bestStation.id);
     }
     return true;
+}
+
+void MetroMapWidget::drawSelectedGoToMarker(QPainter& painter, const QRectF& drawRect)
+{
+    static QPixmap gotoIcon;
+    if (gotoIcon.isNull())
+    {
+        gotoIcon.load(QStringLiteral(":/icons/goto.ico"));
+    }
+    if (gotoIcon.isNull())
+    {
+        return;
+    }
+
+    const QRectF badgeRect = selectedGoToBadgeRect(drawRect);
+    if (!badgeRect.isValid() || badgeRect.isEmpty())
+    {
+        return;
+    }
+    const QRectF iconRect = badgeRect.adjusted(36.0, 2.0, -50.0, -2.0);
+
+    painter.save();
+    painter.setRenderHint(QPainter::Antialiasing, true);
+    painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
+
+    painter.setPen(QPen(QColor(71, 112, 178, 180), 1.0));
+    painter.setBrush(QColor(249, 252, 255, 214));
+    painter.drawRoundedRect(badgeRect, 10.0, 10.0);
+    painter.drawPixmap(iconRect, gotoIcon, gotoIcon.rect());
+
+    QFont tipFont(QStringLiteral("Microsoft YaHei"));
+    tipFont.setPointSizeF(qBound(7.0, 8.0 * zoomScale_, 9.5));
+    tipFont.setBold(true);
+    painter.setFont(tipFont);
+    painter.setPen(QColor(37, 78, 140, 235));
+    const QRectF textRect(iconRect.right() + 3.0, badgeRect.top(), 34.0, badgeRect.height());
+    painter.drawText(textRect, Qt::AlignVCenter | Qt::AlignLeft, QStringLiteral("去这里"));
+    painter.restore();
 }
 
 void MetroMapWidget::drawLineStartBadges(QPainter& painter, const QRectF& drawRect)
@@ -991,44 +1483,87 @@ void MetroMapWidget::drawFocusedStationMap(QPainter& painter, const QRectF& draw
     painter.restore();
 }
 
-void MetroMapWidget::drawCompassOverlay(QPainter& painter, const QRectF& drawRect)
+void MetroMapWidget::drawCurrentStationMarker(QPainter& painter, const QRectF& drawRect)
 {
-    const int margin = 10;
-    const int panelSize = 40;
-    const QRectF panelRect(drawRect.right() - panelSize - margin,
-                           drawRect.bottom() - panelSize - margin, panelSize, panelSize);
-    const QPointF c = panelRect.center();
-    const qreal r = panelRect.width() * 0.40;
+    if (currentStationId_.isEmpty())
+    {
+        return;
+    }
+
+    const QPointF anchor = mapToWidget(currentStationPosition_, drawRect);
+    if (!drawRect.adjusted(-80.0, -80.0, 80.0, 80.0).contains(anchor))
+    {
+        return;
+    }
+
+    static QPixmap markerIcon;
+    if (markerIcon.isNull())
+    {
+        markerIcon.load(QStringLiteral(":/icons/location.ico"));
+    }
+
+    if (markerIcon.isNull())
+    {
+        return;
+    }
+
+    const qreal iconHeight = qBound(18.0, 24.0 * zoomScale_, 28.0);
+    const qreal iconWidth = iconHeight *
+                            (static_cast<qreal>(markerIcon.width()) /
+                             qMax(1.0, static_cast<qreal>(markerIcon.height())));
+    const QRectF iconRect(anchor.x() - iconWidth * 0.5, anchor.y() - iconHeight - 2.0, iconWidth,
+                          iconHeight);
 
     painter.save();
     painter.setRenderHint(QPainter::Antialiasing, true);
-    painter.setPen(QPen(QColor(255, 255, 255, 205), 1.0));
-    painter.setBrush(QColor(20, 34, 52, 105));
-    painter.drawRoundedRect(panelRect, 8.0, 8.0);
+    painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
+    painter.drawPixmap(iconRect, markerIcon, markerIcon.rect());
 
-    painter.setPen(QPen(QColor(230, 236, 248, 220), 1.2));
-    painter.setBrush(QColor(40, 56, 80, 88));
+    QFont titleFont(QStringLiteral("Microsoft YaHei"));
+    titleFont.setBold(true);
+    titleFont.setPointSizeF(qBound(7.5, iconHeight * 0.30, 9.8));
+    painter.setFont(titleFont);
+    painter.setPen(QColor(224, 46, 46, 245));
+
+    const QRectF titleRect(iconRect.center().x() - 34.0, iconRect.top() - 16.0, 68.0, 14.0);
+    painter.drawText(titleRect, Qt::AlignCenter, QStringLiteral("当前站点"));
+    painter.restore();
+}
+
+void MetroMapWidget::drawCompassOverlay(QPainter& painter, const QRectF& drawRect)
+{
+    const int margin = 10;
+    const int compassSize = 32;
+    const QRectF compassRect(drawRect.right() - compassSize - margin,
+                             drawRect.bottom() - compassSize - margin, compassSize, compassSize);
+    const QPointF c = compassRect.center();
+    const qreal r = compassRect.width() * 0.46;
+
+    painter.save();
+    painter.setRenderHint(QPainter::Antialiasing, true);
+    painter.setPen(QPen(QColor(218, 226, 238, 212), 1.2));
+    painter.setBrush(QColor(36, 47, 62, 132));
     painter.drawEllipse(c, r, r);
 
     QPolygonF northArrow;
-    northArrow << QPointF(c.x(), c.y() - r + 4.0) << QPointF(c.x() - 4.2, c.y() + 2.0)
-               << QPointF(c.x() + 4.2, c.y() + 2.0);
+    northArrow << QPointF(c.x(), c.y() - r + 3.4) << QPointF(c.x() - 4.0, c.y() + 1.8)
+               << QPointF(c.x() + 4.0, c.y() + 1.8);
     painter.setPen(Qt::NoPen);
-    painter.setBrush(QColor(224, 76, 76, 230));
+    painter.setBrush(QColor(221, 85, 85, 240));
     painter.drawPolygon(northArrow);
 
     QPolygonF southArrow;
-    southArrow << QPointF(c.x(), c.y() + r - 5.0) << QPointF(c.x() - 3.3, c.y() - 1.0)
-               << QPointF(c.x() + 3.3, c.y() - 1.0);
-    painter.setBrush(QColor(210, 220, 235, 195));
+    southArrow << QPointF(c.x(), c.y() + r - 4.6) << QPointF(c.x() - 3.1, c.y() - 0.8)
+               << QPointF(c.x() + 3.1, c.y() - 0.8);
+    painter.setBrush(QColor(214, 222, 232, 205));
     painter.drawPolygon(southArrow);
 
     QFont nFont(QStringLiteral("Microsoft YaHei"));
     nFont.setBold(true);
     nFont.setPointSize(8);
     painter.setFont(nFont);
-    painter.setPen(QColor(246, 248, 255, 240));
-    painter.drawText(QRectF(c.x() - 6.0, panelRect.top() + 1.0, 12.0, 10.0), Qt::AlignCenter,
+    painter.setPen(QColor(245, 248, 252, 242));
+    painter.drawText(QRectF(c.x() - 6.0, compassRect.top() + 0.6, 12.0, 10.0), Qt::AlignCenter,
                      QStringLiteral("N"));
     painter.restore();
 }
@@ -1232,4 +1767,3 @@ void MetroMapWidget::drawStationLabels(QPainter& painter, const QRectF& drawRect
         }
     }
 }
-

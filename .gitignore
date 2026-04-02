@@ -1,15 +1,21 @@
 /build*/
 /out*/
 /cmake-build-*/
-/resources*/
-/docs*/
+/logs*/
+/build/
+/build-*/
+/compile_commands.json
 
 /.idea/
 /.vscode/
+/.qoder/
 /.qcoder/
+.vs/
 *.user
 *.pro.user
 CMakeLists.txt.user
+*.vcxproj*
+*.sln
 
 *.autosave
 moc_*.cpp
@@ -24,9 +30,14 @@ ui_*.h
 *.so
 *.a
 *.lib
+*.pdb
+*.ilk
 
 # Local API keys (never commit real keys)
 config/api_keys.json
 
 # Generated station map cache (one-time local download artifacts)
 src/models/station_maps/
+
+# Optional local planning notes
+task_plan.md

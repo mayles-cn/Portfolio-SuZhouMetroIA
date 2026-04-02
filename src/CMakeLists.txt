@@ -30,7 +30,15 @@ target_link_libraries(${APP_TARGET}
     PRIVATE
         Qt6::Widgets
         Qt6::Multimedia
+        Qt6::Network
 )
+
+if(TARGET Qt6::WebSockets)
+    target_link_libraries(${APP_TARGET} PRIVATE Qt6::WebSockets)
+    target_compile_definitions(${APP_TARGET} PRIVATE SZMETRO_ENABLE_WEBSOCKET_ASR=1)
+else()
+    message(WARNING "Qt6WebSockets is unavailable. Realtime ASR will run in disabled fallback mode.")
+endif()
 
 if(WIN32)
     set_target_properties(${APP_TARGET} PROPERTIES WIN32_EXECUTABLE ON)

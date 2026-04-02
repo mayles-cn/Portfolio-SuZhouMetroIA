@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/metro_data">
+        <file alias="suzhou_metro_network_core.json">../src/models/suzhou_metro_network_core.json</file>
+        <file alias="informationBar.json">../src/models/informationBar.json</file>
+    </qresource>
+    <qresource prefix="/icons">
+        <file alias="suzhouMetroLogo.ico">icons/suzhouMetroLogo.ico</file>
+        <file alias="location.ico">icons/location.ico</file>
+        <file alias="goto.ico">icons/goto.ico</file>
+    </qresource>
+    <qresource prefix="/images">
+        <file alias="payWeixin.png">images/payWeixin.png</file>
+        <file alias="payYinlian.png">images/payYinlian.png</file>
+        <file alias="payZhifubao.png">images/payZhifubao.png</file>
+        <file alias="showPayment.png">images/showPayment.png</file>
+    </qresource>
+</RCC>

@@ -42,6 +42,8 @@ VoiceAssistantWidget::VoiceAssistantWidget(QWidget* parent)
         {
             format = inputDevice.preferredFormat();
         }
+        channelCount_ = qMax(1, format.channelCount());
+        sampleRate_ = qMax(1, format.sampleRate());
 
         switch (format.sampleFormat())
         {
@@ -177,8 +179,14 @@ void VoiceAssistantWidget::mouseReleaseEvent(QMouseEvent* event)
 
 void VoiceAssistantWidget::startListening()
 {
+    if (pressed_)
+    {
+        return;
+    }
+
     pressed_ = true;
     level_ = 0.0f;
+    emit listeningStarted();
 
     if (audioSource_ != nullptr)
     {
@@ -193,6 +201,11 @@ void VoiceAssistantWidget::startListening()
 
 void VoiceAssistantWidget::stopListening()
 {
+    if (!pressed_)
+    {
+        return;
+    }
+
     pressed_ = false;
     level_ = 0.0f;
     targetRadius_ = 30.0f;
@@ -208,6 +221,7 @@ void VoiceAssistantWidget::stopListening()
     {
         audioSource_->stop();
     }
+    emit listeningStopped();
 }
 
 void VoiceAssistantWidget::handleAudioReadyRead()
@@ -221,6 +235,12 @@ void VoiceAssistantWidget::handleAudioReadyRead()
     if (data.size() < static_cast<int>(sizeof(qint16)))
     {
         return;
+    }
+
+    const QByteArray pcm16Chunk = convertToPcm16(data);
+    if (!pcm16Chunk.isEmpty())
+    {
+        emit audioChunkCaptured(pcm16Chunk);
     }
 
     double sum = 0.0;
@@ -267,6 +287,124 @@ void VoiceAssistantWidget::handleAudioReadyRead()
     const double rms = std::sqrt(sum / sampleCount);
     const float amplified = static_cast<float>(std::clamp(rms * 4.4, 0.0, 1.0));
     level_ = level_ * 0.58f + amplified * 0.42f;
+}
+
+QByteArray VoiceAssistantWidget::convertToPcm16(const QByteArray& rawData) const
+{
+    if (rawData.isEmpty())
+    {
+        return {};
+    }
+
+    const int channels = qMax(1, channelCount_);
+    auto resampleTo16k = [this](const QByteArray& mono16Raw) -> QByteArray {
+        const int inRate = qMax(1, sampleRate_);
+        constexpr int kOutRate = 16000;
+        if (inRate == kOutRate)
+        {
+            return mono16Raw;
+        }
+
+        const int inCount = mono16Raw.size() / static_cast<int>(sizeof(qint16));
+        if (inCount <= 1)
+        {
+            return {};
+        }
+
+        const qint16* in = reinterpret_cast<const qint16*>(mono16Raw.constData());
+        const int outCount =
+            qMax(1, static_cast<int>((static_cast<long long>(inCount) * kOutRate) / inRate));
+        QByteArray outRaw(outCount * static_cast<int>(sizeof(qint16)), Qt::Uninitialized);
+        qint16* out = reinterpret_cast<qint16*>(outRaw.data());
+
+        for (int i = 0; i < outCount; ++i)
+        {
+            const double srcPos = static_cast<double>(i) * inRate / kOutRate;
+            const int idx = static_cast<int>(srcPos);
+            const int idxNext = qMin(idx + 1, inCount - 1);
+            const double frac = srcPos - idx;
+            const double sample = in[idx] * (1.0 - frac) + in[idxNext] * frac;
+            out[i] = static_cast<qint16>(std::clamp(sample, -32768.0, 32767.0));
+        }
+
+        return outRaw;
+    };
+
+    if (sampleKind_ == AudioSampleKind::Int16)
+    {
+        const int totalSamples = rawData.size() / static_cast<int>(sizeof(qint16));
+        const int frameCount = totalSamples / channels;
+        if (frameCount <= 0)
+        {
+            return {};
+        }
+
+        QByteArray output(frameCount * static_cast<int>(sizeof(qint16)), Qt::Uninitialized);
+        const qint16* in = reinterpret_cast<const qint16*>(rawData.constData());
+        qint16* out = reinterpret_cast<qint16*>(output.data());
+        for (int frame = 0; frame < frameCount; ++frame)
+        {
+            int accum = 0;
+            for (int c = 0; c < channels; ++c)
+            {
+                accum += static_cast<int>(in[frame * channels + c]);
+            }
+            out[frame] = static_cast<qint16>(accum / channels);
+        }
+        return resampleTo16k(output);
+    }
+
+    if (sampleKind_ == AudioSampleKind::Int32)
+    {
+        const int totalSamples = rawData.size() / static_cast<int>(sizeof(qint32));
+        const int frameCount = totalSamples / channels;
+        if (frameCount <= 0)
+        {
+            return {};
+        }
+
+        QByteArray output(frameCount * static_cast<int>(sizeof(qint16)), Qt::Uninitialized);
+        const qint32* in = reinterpret_cast<const qint32*>(rawData.constData());
+        qint16* out = reinterpret_cast<qint16*>(output.data());
+        for (int frame = 0; frame < frameCount; ++frame)
+        {
+            long long accum = 0;
+            for (int c = 0; c < channels; ++c)
+            {
+                accum += static_cast<long long>(in[frame * channels + c] / 65536);
+            }
+            const long long avg = accum / channels;
+            out[frame] = static_cast<qint16>(std::clamp(avg, -32768LL, 32767LL));
+        }
+        return resampleTo16k(output);
+    }
+
+    if (sampleKind_ == AudioSampleKind::Float)
+    {
+        const int totalSamples = rawData.size() / static_cast<int>(sizeof(float));
+        const int frameCount = totalSamples / channels;
+        if (frameCount <= 0)
+        {
+            return {};
+        }
+
+        QByteArray output(frameCount * static_cast<int>(sizeof(qint16)), Qt::Uninitialized);
+        const float* in = reinterpret_cast<const float*>(rawData.constData());
+        qint16* out = reinterpret_cast<qint16*>(output.data());
+        for (int frame = 0; frame < frameCount; ++frame)
+        {
+            double accum = 0.0;
+            for (int c = 0; c < channels; ++c)
+            {
+                accum += std::clamp(static_cast<double>(in[frame * channels + c]), -1.0, 1.0);
+            }
+            const double avg = accum / channels;
+            out[frame] = static_cast<qint16>(std::clamp(avg * 32767.0, -32768.0, 32767.0));
+        }
+        return resampleTo16k(output);
+    }
+
+    return {};
 }
 
 void VoiceAssistantWidget::tickAnimation()

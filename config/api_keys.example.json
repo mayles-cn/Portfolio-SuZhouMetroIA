@@ -1,0 +1,9 @@
+{
+  "amap": {
+    "web_service_key": "YOUR_AMAP_KEY"
+  },
+  "Qwen3": {
+    "LLM_service_key": "YOUR_QWEN_KEY",
+    "model": "qwen-plus"
+  }
+}

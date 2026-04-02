@@ -4,5 +4,15 @@ set(SERVICE_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/route_service.h
     ${CMAKE_CURRENT_SOURCE_DIR}/fare_service.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/fare_service.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/app_config_service.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/app_config_service.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/metro_tool_service.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/metro_tool_service.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/qwen_assistant_service.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/qwen_assistant_service.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/speech_realtime_service.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/speech_realtime_service.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/activity_logger.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/activity_logger.h
     PARENT_SCOPE
 )
