@@ -1,5 +1,7 @@
 ﻿#include "widgets/settlement_widget.h"
 
+#include "services/style_service.h"
+
 #include <QAbstractButton>
 #include <QAbstractSpinBox>
 #include <QButtonGroup>
@@ -19,7 +21,8 @@ SettlementWidget::SettlementWidget(QWidget* parent)
     : QWidget(parent)
 {
     setAttribute(Qt::WA_StyledBackground, true);
-    setStyleSheet("background: transparent;");
+    setStyleSheet(szmetro::UiStyleService::style(
+        QStringLiteral("settlement.root"), QStringLiteral("background: transparent;")));
     setFixedHeight(kPanelHeight);
 
     auto* rootLayout = new QVBoxLayout(this);
@@ -28,42 +31,43 @@ SettlementWidget::SettlementWidget(QWidget* parent)
 
     auto* panel = new QFrame(this);
     panel->setObjectName("settlementPanel");
-    panel->setStyleSheet(
-        "#settlementPanel {"
-        "background-color: rgba(94, 101, 112, 232);"
-        "border-bottom-left-radius: 16px;"
-        "border-bottom-right-radius: 16px;"
-        "}"
-        "#titleLabel {"
-        "color: rgba(242, 246, 252, 246);"
-        "font: 700 21px 'Microsoft YaHei';"
-        "}"
-        "#subtitleLabel {"
-        "color: rgba(219, 226, 238, 232);"
-        "font: 12px 'Microsoft YaHei';"
-        "}"
-        "#summaryLabel {"
-        "color: rgba(235, 241, 251, 244);"
-        "font: 700 14px 'Microsoft YaHei';"
-        "}"
-        "#infoLabel {"
-        "color: rgba(213, 222, 236, 236);"
-        "font: 12px 'Microsoft YaHei';"
-        "}"
-        "#readonlyValue {"
-        "color: rgba(233, 239, 249, 246);"
-        "background-color: rgba(118, 126, 140, 186);"
-        "font: 700 12px 'Microsoft YaHei';"
-        "border-radius: 8px;"
-        "padding: 6px 10px;"
-        "}"
-        "#ticketInfoSuccess {"
-        "color: rgba(20, 79, 45, 238);"
-        "background-color: rgba(233, 247, 238, 228);"
-        "font: 12px 'Microsoft YaHei';"
-        "border-radius: 10px;"
-        "padding: 12px;"
-        "}");
+    panel->setStyleSheet(szmetro::UiStyleService::style(
+        QStringLiteral("settlement.panel"),
+        QStringLiteral("#settlementPanel {"
+                       "background-color: rgba(94, 101, 112, 232);"
+                       "border-bottom-left-radius: 16px;"
+                       "border-bottom-right-radius: 16px;"
+                       "}"
+                       "#titleLabel {"
+                       "color: rgba(242, 246, 252, 246);"
+                       "font: 700 21px 'Microsoft YaHei';"
+                       "}"
+                       "#subtitleLabel {"
+                       "color: rgba(219, 226, 238, 232);"
+                       "font: 12px 'Microsoft YaHei';"
+                       "}"
+                       "#summaryLabel {"
+                       "color: rgba(235, 241, 251, 244);"
+                       "font: 700 14px 'Microsoft YaHei';"
+                       "}"
+                       "#infoLabel {"
+                       "color: rgba(213, 222, 236, 236);"
+                       "font: 12px 'Microsoft YaHei';"
+                       "}"
+                       "#readonlyValue {"
+                       "color: rgba(233, 239, 249, 246);"
+                       "background-color: rgba(118, 126, 140, 186);"
+                       "font: 700 12px 'Microsoft YaHei';"
+                       "border-radius: 8px;"
+                       "padding: 6px 10px;"
+                       "}"
+                       "#ticketInfoSuccess {"
+                       "color: rgba(20, 79, 45, 238);"
+                       "background-color: rgba(233, 247, 238, 228);"
+                       "font: 12px 'Microsoft YaHei';"
+                       "border-radius: 10px;"
+                       "padding: 12px;"
+                       "}")));
 
     auto* panelLayout = new QVBoxLayout(panel);
     panelLayout->setContentsMargins(24, 14, 24, 14);
@@ -128,26 +132,28 @@ SettlementWidget::SettlementWidget(QWidget* parent)
     plusButton->setCursor(Qt::PointingHandCursor);
     plusButton->setFixedSize(36, 32);
 
-    const QString quantityBtnStyle = QStringLiteral(
-        "QPushButton {"
-        "background-color: rgba(236, 241, 249, 244);"
-        "color: rgba(30, 61, 101, 240);"
-        "border: none;"
-        "border-radius: 8px;"
-        "font: 700 18px 'Microsoft YaHei';"
-        "}"
-        "QPushButton:pressed { background-color: rgba(222, 232, 245, 250); }");
+    const QString quantityBtnStyle = szmetro::UiStyleService::style(
+        QStringLiteral("settlement.quantity_button"),
+        QStringLiteral("QPushButton {"
+                       "background-color: rgba(236, 241, 249, 244);"
+                       "color: rgba(30, 61, 101, 240);"
+                       "border: none;"
+                       "border-radius: 8px;"
+                       "font: 700 18px 'Microsoft YaHei';"
+                       "}"
+                       "QPushButton:pressed { background-color: rgba(222, 232, 245, 250); }"));
     minusButton->setStyleSheet(quantityBtnStyle);
     plusButton->setStyleSheet(quantityBtnStyle);
-    quantitySpin_->setStyleSheet(
-        "QSpinBox {"
-        "background-color: rgba(246, 248, 252, 230);"
-        "color: rgba(25, 52, 88, 245);"
-        "border: none;"
-        "border-radius: 8px;"
-        "font: 700 13px 'Microsoft YaHei';"
-        "padding: 4px 8px;"
-        "}");
+    quantitySpin_->setStyleSheet(szmetro::UiStyleService::style(
+        QStringLiteral("settlement.quantity_spin"),
+        QStringLiteral("QSpinBox {"
+                       "background-color: rgba(246, 248, 252, 230);"
+                       "color: rgba(25, 52, 88, 245);"
+                       "border: none;"
+                       "border-radius: 8px;"
+                       "font: 700 13px 'Microsoft YaHei';"
+                       "padding: 4px 8px;"
+                       "}")));
 
     quantityRow->addWidget(minusButton);
     quantityRow->addWidget(quantitySpin_, 1);
@@ -188,18 +194,19 @@ SettlementWidget::SettlementWidget(QWidget* parent)
         btn->setCheckable(true);
         btn->setCursor(Qt::PointingHandCursor);
         btn->setIconSize(QSize(18, 18));
-        btn->setStyleSheet(
-            "QPushButton {"
-            "background-color: rgba(235,242,252,238);"
-            "color: #2e4f80;"
-            "border: none;"
-            "border-radius: 8px;"
-            "font: 700 11px 'Microsoft YaHei';"
-            "padding: 7px 10px;"
-            "}"
-            "QPushButton:checked {"
-            "background-color: rgba(218,232,252,248);"
-            "}");
+        btn->setStyleSheet(szmetro::UiStyleService::style(
+            QStringLiteral("settlement.pay_method_button"),
+            QStringLiteral("QPushButton {"
+                           "background-color: rgba(235,242,252,238);"
+                           "color: #2e4f80;"
+                           "border: none;"
+                           "border-radius: 8px;"
+                           "font: 700 11px 'Microsoft YaHei';"
+                           "padding: 7px 10px;"
+                           "}"
+                           "QPushButton:checked {"
+                           "background-color: rgba(218,232,252,248);"
+                           "}")));
         payMethodRow->addWidget(btn, 1);
     }
     wechatButton_->setChecked(true);
@@ -212,33 +219,35 @@ SettlementWidget::SettlementWidget(QWidget* parent)
     auto* payButton = new QPushButton(QStringLiteral("模拟支付"), panel);
     payButton->setCursor(Qt::PointingHandCursor);
     payButton->setMinimumHeight(36);
-    payButton->setStyleSheet(
-        "QPushButton {"
-        "background-color: rgba(34, 101, 202, 240);"
-        "color: white;"
-        "border: none;"
-        "border-radius: 10px;"
-        "font: 700 14px 'Microsoft YaHei';"
-        "padding: 8px 16px;"
-        "}"
-        "QPushButton:hover { background-color: rgba(30, 92, 186, 248); }"
-        "QPushButton:pressed { background-color: rgba(24, 77, 160, 250); }");
+    payButton->setStyleSheet(szmetro::UiStyleService::style(
+        QStringLiteral("settlement.pay_button"),
+        QStringLiteral("QPushButton {"
+                       "background-color: rgba(34, 101, 202, 240);"
+                       "color: white;"
+                       "border: none;"
+                       "border-radius: 10px;"
+                       "font: 700 14px 'Microsoft YaHei';"
+                       "padding: 8px 16px;"
+                       "}"
+                       "QPushButton:hover { background-color: rgba(30, 92, 186, 248); }"
+                       "QPushButton:pressed { background-color: rgba(24, 77, 160, 250); }")));
     actionRow->addWidget(payButton, 1);
 
     auto* closeButton = new QPushButton(QStringLiteral("关闭"), panel);
     closeButton->setCursor(Qt::PointingHandCursor);
     closeButton->setMinimumHeight(36);
-    closeButton->setStyleSheet(
-        "QPushButton {"
-        "background-color: rgba(143, 152, 167, 225);"
-        "color: rgba(244, 247, 252, 245);"
-        "border: none;"
-        "border-radius: 10px;"
-        "font: 700 13px 'Microsoft YaHei';"
-        "padding: 8px 14px;"
-        "}"
-        "QPushButton:hover { background-color: rgba(132, 143, 160, 236); }"
-        "QPushButton:pressed { background-color: rgba(116, 128, 146, 246); }");
+    closeButton->setStyleSheet(szmetro::UiStyleService::style(
+        QStringLiteral("settlement.close_button"),
+        QStringLiteral("QPushButton {"
+                       "background-color: rgba(143, 152, 167, 225);"
+                       "color: rgba(244, 247, 252, 245);"
+                       "border: none;"
+                       "border-radius: 10px;"
+                       "font: 700 13px 'Microsoft YaHei';"
+                       "padding: 8px 14px;"
+                       "}"
+                       "QPushButton:hover { background-color: rgba(132, 143, 160, 236); }"
+                       "QPushButton:pressed { background-color: rgba(116, 128, 146, 246); }")));
     actionRow->addWidget(closeButton, 0);
     panelLayout->addLayout(actionRow);
 
@@ -406,3 +415,6 @@ QString SettlementWidget::generateTicketCode() const
     const int randSuffix = QRandomGenerator::global()->bounded(1000, 9999);
     return QStringLiteral("SZM%1%2").arg(timestamp).arg(randSuffix);
 }
+
+
+

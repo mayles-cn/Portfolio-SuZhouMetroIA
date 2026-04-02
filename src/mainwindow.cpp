@@ -1,6 +1,7 @@
 ﻿#include "mainwindow.h"
 
 #include "services/activity_logger.h"
+#include "services/style_service.h"
 #include "widgets/chat_panel_widget.h"
 #include "widgets/information_bar_widget.h"
 #include "widgets/metro_map_widget.h"
@@ -36,7 +37,8 @@ void MainWindow::buildUi()
     setWindowTitle(QStringLiteral("苏州地铁智能助手"));
     setWindowIcon(QIcon(QStringLiteral(":/icons/suzhouMetroLogo.ico")));
     setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
-    setStyleSheet(QStringLiteral("background-color: #f7f8f8;"));
+    setStyleSheet(szmetro::UiStyleService::style(
+        QStringLiteral("mainwindow.window"), QStringLiteral("background-color: #f7f8f8;")));
 
     metroMap_ = new MetroMapWidget(this);
     chatPanel_ = new ChatPanelWidget(this);
@@ -161,7 +163,9 @@ void MainWindow::buildBranding()
 {
     brandingWidget_ = new QWidget(this);
     brandingWidget_->setAttribute(Qt::WA_StyledBackground, false);
-    brandingWidget_->setStyleSheet(QStringLiteral("background: transparent; border: none;"));
+    brandingWidget_->setStyleSheet(
+        szmetro::UiStyleService::style(QStringLiteral("mainwindow.branding_widget"),
+                                       QStringLiteral("background: transparent; border: none;")));
 
     auto* rootLayout = new QHBoxLayout(brandingWidget_);
     rootLayout->setContentsMargins(10, 8, 12, 8);
@@ -180,15 +184,17 @@ void MainWindow::buildBranding()
     textLayout->setSpacing(1);
 
     brandTitleLabel_ = new QLabel(QStringLiteral("苏州地铁"), brandingWidget_);
-    brandTitleLabel_->setStyleSheet(
+    brandTitleLabel_->setStyleSheet(szmetro::UiStyleService::style(
+        QStringLiteral("mainwindow.brand_title"),
         QStringLiteral("color: #153C7A;"
-                       "font: 700 17px 'Microsoft YaHei';"));
+                       "font: 700 17px 'Microsoft YaHei';")));
     brandTitleLabel_->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 
     brandSubtitleLabel_ = new QLabel(QStringLiteral("智能出行与购票助手"), brandingWidget_);
-    brandSubtitleLabel_->setStyleSheet(
+    brandSubtitleLabel_->setStyleSheet(szmetro::UiStyleService::style(
+        QStringLiteral("mainwindow.brand_subtitle"),
         QStringLiteral("color: rgba(31,58,98,185);"
-                       "font: 10px 'Microsoft YaHei';"));
+                       "font: 10px 'Microsoft YaHei';")));
     brandSubtitleLabel_->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 
     textLayout->addWidget(brandTitleLabel_);
@@ -435,3 +441,4 @@ void MainWindow::resizeEvent(QResizeEvent* event)
     QMainWindow::resizeEvent(event);
     layoutControls();
 }
+

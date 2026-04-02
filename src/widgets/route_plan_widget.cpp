@@ -1,5 +1,7 @@
 ﻿#include "widgets/route_plan_widget.h"
 
+#include "services/style_service.h"
+
 #include <cmath>
 #include <QFontMetricsF>
 #include <QPainter>
@@ -52,7 +54,8 @@ RoutePlanWidget::RoutePlanWidget(QWidget* parent)
     setAttribute(Qt::WA_StyledBackground, false);
     setAttribute(Qt::WA_TranslucentBackground, true);
     setAutoFillBackground(false);
-    setStyleSheet(QStringLiteral("background: transparent; border: none;"));
+    setStyleSheet(szmetro::UiStyleService::style(
+        QStringLiteral("route_plan.root"), QStringLiteral("background: transparent; border: none;")));
 
     if (!networkData_.loadFromResource(QStringLiteral(":/metro_data/suzhou_metro_network_core.json"),
                                        &loadError_))
@@ -581,4 +584,7 @@ void RoutePlanWidget::refreshView()
                        .arg(transferCount);
     update();
 }
+
+
+
 

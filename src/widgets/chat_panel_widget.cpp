@@ -1,8 +1,9 @@
-#include "widgets/chat_panel_widget.h"
+﻿#include "widgets/chat_panel_widget.h"
 
 #include "services/activity_logger.h"
 #include "services/qwen_assistant_service.h"
 #include "services/speech_realtime_service.h"
+#include "services/style_service.h"
 #include "widgets/chat_bubble_widget.h"
 #include "widgets/voice_assistant_widget.h"
 
@@ -51,7 +52,9 @@ ChatPanelWidget::ChatPanelWidget(QWidget* parent)
     : QWidget(parent)
 {
     setAttribute(Qt::WA_StyledBackground, true);
-    setStyleSheet("background-color: rgba(230, 230, 230, 230);");
+    setStyleSheet(szmetro::UiStyleService::style(
+        QStringLiteral("chat_panel.root"),
+        QStringLiteral("background-color: rgba(230, 230, 230, 230);")));
 
     auto* rootLayout = new QVBoxLayout(this);
     rootLayout->setContentsMargins(kPanelMargin, kPanelMargin, kPanelMargin, kPanelMargin);
@@ -62,11 +65,15 @@ ChatPanelWidget::ChatPanelWidget(QWidget* parent)
     scrollArea_->setWidgetResizable(true);
     scrollArea_->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     scrollArea_->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    scrollArea_->setStyleSheet("background: transparent;");
+    scrollArea_->setStyleSheet(
+        szmetro::UiStyleService::style(QStringLiteral("chat_panel.scroll_area"),
+                                       QStringLiteral("background: transparent;")));
 
     messageContainer_ = new QWidget(scrollArea_);
     messageContainer_->setAttribute(Qt::WA_StyledBackground, true);
-    messageContainer_->setStyleSheet("background: transparent;");
+    messageContainer_->setStyleSheet(
+        szmetro::UiStyleService::style(QStringLiteral("chat_panel.message_container"),
+                                       QStringLiteral("background: transparent;")));
 
     messageLayout_ = new QVBoxLayout(messageContainer_);
     messageLayout_->setContentsMargins(0, 0, 0, kVoiceOverlayReserve);
@@ -127,14 +134,10 @@ ChatPanelWidget::ChatPanelWidget(QWidget* parent)
                 emit openSettlementRequested();
             });
 
-    addMessage(
-        QStringLiteral(
-            "乘客您好，我是苏州地铁智能购票助手，有什么可以帮您？"),
-        ChatBubbleWidget::Speaker::Assistant);
-    addMessage(
-        QStringLiteral(
-            "您可以对我说：我想去富强地铁站，帮我买张去东方之门的票，我想去虎丘塔买哪里的票等等。"),
-        ChatBubbleWidget::Speaker::Assistant);
+    addMessage(QStringLiteral("您好，我是苏州地铁智能购票助手，有什么可以帮您？"),
+               ChatBubbleWidget::Speaker::Assistant);
+    addMessage(QStringLiteral("例如：我要去东方之门，帮我买2张票。"),
+               ChatBubbleWidget::Speaker::Assistant);
 
     layoutVoiceAssistant();
 }
@@ -224,7 +227,9 @@ void ChatPanelWidget::resetConversationUi()
 
         messageContainer_ = new QWidget(scrollArea_);
         messageContainer_->setAttribute(Qt::WA_StyledBackground, true);
-        messageContainer_->setStyleSheet("background: transparent;");
+        messageContainer_->setStyleSheet(
+            szmetro::UiStyleService::style(QStringLiteral("chat_panel.message_container"),
+                                           QStringLiteral("background: transparent;")));
 
         messageLayout_ = new QVBoxLayout(messageContainer_);
         messageLayout_->setContentsMargins(0, 0, 0, kVoiceOverlayReserve);
@@ -273,7 +278,9 @@ ChatBubbleWidget* ChatPanelWidget::appendMessageBubble(const QString& text,
 {
     auto* rowWidget = new QWidget(messageContainer_);
     rowWidget->setAttribute(Qt::WA_StyledBackground, true);
-    rowWidget->setStyleSheet("background: transparent;");
+    rowWidget->setStyleSheet(
+        szmetro::UiStyleService::style(QStringLiteral("chat_panel.message_row"),
+                                       QStringLiteral("background: transparent;")));
 
     auto* rowLayout = new QHBoxLayout(rowWidget);
     rowLayout->setContentsMargins(2, 0, 2, 0);
@@ -534,8 +541,7 @@ void ChatPanelWidget::onAssistantError(const QString& text)
              errorText.contains(QStringLiteral("Audio is not valid 'pcm16'"),
                                 Qt::CaseInsensitive))
     {
-        errorText =
-            QStringLiteral("语音格式不匹配：服务端拒绝了 pcm16 音频流，已切换为 pcm 协议，请重试。");
+        errorText = QStringLiteral("语音格式不匹配：服务端拒绝了 pcm16 音频流，请重试。");
     }
     else if (errorText.contains(QStringLiteral("Error committing input audio buffer"),
                                 Qt::CaseInsensitive))
@@ -729,3 +735,4 @@ bool ChatPanelWidget::shouldIgnoreRecognizedText(const QString& text) const
 
     return false;
 }
+

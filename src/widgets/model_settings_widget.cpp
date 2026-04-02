@@ -1,4 +1,6 @@
-#include "widgets/model_settings_widget.h"
+﻿#include "widgets/model_settings_widget.h"
+
+#include "services/style_service.h"
 
 #include <QCheckBox>
 #include <QHBoxLayout>
@@ -9,10 +11,11 @@ ModelSettingsWidget::ModelSettingsWidget(QWidget* parent)
     : QWidget(parent)
 {
     setAttribute(Qt::WA_StyledBackground, true);
-    setStyleSheet(
-        "background-color: rgba(255,255,255,242);"
-        "border: 1px solid rgba(39,66,112,120);"
-        "border-radius: 10px;");
+    setStyleSheet(szmetro::UiStyleService::style(
+        QStringLiteral("model_settings.root"),
+        QStringLiteral("background-color: rgba(255,255,255,242);"
+                       "border: 1px solid rgba(39,66,112,120);"
+                       "border-radius: 10px;")));
 
     auto* rootLayout = new QVBoxLayout(this);
     rootLayout->setContentsMargins(10, 8, 10, 8);
@@ -22,18 +25,20 @@ ModelSettingsWidget::ModelSettingsWidget(QWidget* parent)
     topRow->setContentsMargins(0, 0, 0, 0);
     topRow->setSpacing(8);
     auto* title = new QLabel(QStringLiteral("\u6a21\u578b\u8bbe\u7f6e"), this);
-    title->setStyleSheet(
-        "color: rgba(34,60,106,230);"
-        "font: 700 12px 'Microsoft YaHei';"
-        "border: none;");
+    title->setStyleSheet(szmetro::UiStyleService::style(
+        QStringLiteral("model_settings.title"),
+        QStringLiteral("color: rgba(34,60,106,230);"
+                       "font: 700 12px 'Microsoft YaHei';"
+                       "border: none;")));
     topRow->addWidget(title, 0);
 
     stationHintLabel_ = new QLabel(QStringLiteral("\u5f53\u524d\u7ad9\u70b9\uff1a-\uff08\u5df2\u540c\u6b65\u7ed9\u6a21\u578b\uff09"),
                                    this);
-    stationHintLabel_->setStyleSheet(
-        "color: rgba(34,60,106,185);"
-        "font: 11px 'Microsoft YaHei';"
-        "border: none;");
+    stationHintLabel_->setStyleSheet(szmetro::UiStyleService::style(
+        QStringLiteral("model_settings.station_hint"),
+        QStringLiteral("color: rgba(34,60,106,185);"
+                       "font: 11px 'Microsoft YaHei';"
+                       "border: none;")));
     topRow->addWidget(stationHintLabel_, 1);
     rootLayout->addLayout(topRow);
 
@@ -41,12 +46,13 @@ ModelSettingsWidget::ModelSettingsWidget(QWidget* parent)
     controlsRow->setContentsMargins(0, 0, 0, 0);
     controlsRow->setSpacing(10);
 
-    const QString checkboxStyle = QStringLiteral(
-        "QCheckBox {"
-        "color: rgba(34,60,106,220);"
-        "font: 11px 'Microsoft YaHei';"
-        "border: none;"
-        "}");
+    const QString checkboxStyle = szmetro::UiStyleService::style(
+        QStringLiteral("model_settings.checkbox"),
+        QStringLiteral("QCheckBox {"
+                       "color: rgba(34,60,106,220);"
+                       "font: 11px 'Microsoft YaHei';"
+                       "border: none;"
+                       "}"));
 
     autoSetCurrentStationCheckbox_ = new QCheckBox(QStringLiteral("\u9009\u4e2d\u7ad9\u70b9\u540e\u8bbe\u4e3a\u5f53\u524d\u7ad9"), this);
     autoSetCurrentStationCheckbox_->setChecked(false);
@@ -175,3 +181,4 @@ bool ModelSettingsWidget::isPanelVisible() const
 {
     return isVisible();
 }
+

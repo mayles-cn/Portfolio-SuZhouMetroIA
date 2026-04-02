@@ -1,5 +1,6 @@
 ﻿#include "widgets/metro_map_widget.h"
 
+#include "services/style_service.h"
 #include "widgets/station_panel_widget.h"
 
 #include <QAbstractButton>
@@ -204,10 +205,11 @@ MetroMapWidget::MetroMapWidget(QWidget* parent)
     selectorPanel_ = new QWidget(this);
     selectorPanel_->setAttribute(Qt::WA_StyledBackground, false);
     selectorPanel_->setAutoFillBackground(false);
-    selectorPanel_->setStyleSheet(
-        "background: transparent;"
-        "border: none;"
-        "border-radius: 0;");
+    selectorPanel_->setStyleSheet(szmetro::UiStyleService::style(
+        QStringLiteral("metro_map.selector_panel"),
+        QStringLiteral("background: transparent;"
+                       "border: none;"
+                       "border-radius: 0;")));
 
     buildLineSelector();
     layoutSelectorPanel();
@@ -717,21 +719,22 @@ void MetroMapWidget::buildLineSelector()
     allButton->setCursor(Qt::PointingHandCursor);
     allButton->setMinimumHeight(kPanelHeight);
     allButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-    allButton->setStyleSheet(
-        "QPushButton {"
-        "background-color: rgba(66, 78, 96, 80);"
-        "color: rgba(255, 255, 255, 230);"
-        "border: none;"
-        "border-radius: 0px;"
-        "padding: 0px;"
-        "font: 10px 'Microsoft YaHei';"
-        "}"
-        "QPushButton:hover { background-color: rgba(66, 78, 96, 130); }"
-        "QPushButton:checked {"
-        "background-color: rgba(45, 56, 72, 245);"
-        "border: 1px solid rgba(255,255,255,220);"
-        "font: 700 10px 'Microsoft YaHei';"
-        "}");
+    allButton->setStyleSheet(szmetro::UiStyleService::style(
+        QStringLiteral("metro_map.line_button_all"),
+        QStringLiteral("QPushButton {"
+                       "background-color: rgba(66, 78, 96, 80);"
+                       "color: rgba(255, 255, 255, 230);"
+                       "border: none;"
+                       "border-radius: 0px;"
+                       "padding: 0px;"
+                       "font: 10px 'Microsoft YaHei';"
+                       "}"
+                       "QPushButton:hover { background-color: rgba(66, 78, 96, 130); }"
+                       "QPushButton:checked {"
+                       "background-color: rgba(45, 56, 72, 245);"
+                       "border: 1px solid rgba(255,255,255,220);"
+                       "font: 700 10px 'Microsoft YaHei';"
+                       "}")));
     lineButtonGroup_->addButton(allButton, -1);
     panelLayout->addWidget(allButton);
 
@@ -744,22 +747,23 @@ void MetroMapWidget::buildLineSelector()
         button->setMinimumHeight(kPanelHeight);
         button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
         const QColor lineColor = lines[i].color;
-        const QString style = QString(
-                                  "QPushButton {"
-                                  "background-color: rgba(%1, %2, %3, 95);"
-                                  "color: rgba(255, 255, 255, 235);"
-                                  "border: none;"
-                                  "border-radius: 0px;"
-                                  "padding: 0px;"
-                                  "font: 10px 'Microsoft YaHei';"
-                                  "}"
-                                  "QPushButton:hover { background-color: rgba(%1, %2, %3, 150); }"
-                                  "QPushButton:checked {"
-                                  "background-color: rgba(%1, %2, %3, 255);"
-                                  "border: 1px solid rgba(255,255,255,230);"
-                                  "font: 700 10px 'Microsoft YaHei';"
-                                  "}")
-                                  .arg(lineColor.red())
+        const QString styleTemplate = szmetro::UiStyleService::style(
+            QStringLiteral("metro_map.line_button_template"),
+            QStringLiteral("QPushButton {"
+                           "background-color: rgba(%1, %2, %3, 95);"
+                           "color: rgba(255, 255, 255, 235);"
+                           "border: none;"
+                           "border-radius: 0px;"
+                           "padding: 0px;"
+                           "font: 10px 'Microsoft YaHei';"
+                           "}"
+                           "QPushButton:hover { background-color: rgba(%1, %2, %3, 150); }"
+                           "QPushButton:checked {"
+                           "background-color: rgba(%1, %2, %3, 255);"
+                           "border: 1px solid rgba(255,255,255,230);"
+                           "font: 700 10px 'Microsoft YaHei';"
+                           "}"));
+        const QString style = styleTemplate.arg(lineColor.red())
                                   .arg(lineColor.green())
                                   .arg(lineColor.blue());
         button->setStyleSheet(style);
@@ -775,19 +779,21 @@ void MetroMapWidget::buildQuickBuyPanel()
 {
     quickBuyPanel_ = new QWidget(this);
     quickBuyPanel_->setAttribute(Qt::WA_StyledBackground, true);
-    quickBuyPanel_->setStyleSheet(
-        "background-color: rgba(232,236,242,238);"
-        "border-radius: 10px;");
+    quickBuyPanel_->setStyleSheet(szmetro::UiStyleService::style(
+        QStringLiteral("metro_map.quick_buy_panel"),
+        QStringLiteral("background-color: rgba(232,236,242,238);"
+                       "border-radius: 10px;")));
 
     auto* root = new QVBoxLayout(quickBuyPanel_);
     root->setContentsMargins(10, 10, 10, 10);
     root->setSpacing(6);
 
     auto* title = new QLabel(QStringLiteral("快速购票"), quickBuyPanel_);
-    title->setStyleSheet(
-        "color: rgba(22,58,108,228);"
-        "font: 700 13px 'Microsoft YaHei';"
-        "background: transparent;");
+    title->setStyleSheet(szmetro::UiStyleService::style(
+        QStringLiteral("metro_map.quick_buy_title"),
+        QStringLiteral("color: rgba(22,58,108,228);"
+                       "font: 700 13px 'Microsoft YaHei';"
+                       "background: transparent;")));
     root->addWidget(title);
 
     const QVector<int> quickAmounts = {2, 3, 4, 5, 6, 7};
@@ -796,17 +802,18 @@ void MetroMapWidget::buildQuickBuyPanel()
         auto* btn = new QPushButton(QStringLiteral("%1元单程").arg(amount), quickBuyPanel_);
         btn->setCursor(Qt::PointingHandCursor);
         btn->setMinimumHeight(30);
-        btn->setStyleSheet(
-            "QPushButton {"
-            "background-color: rgba(245,248,253,245);"
-            "color: rgba(38,68,111,230);"
-            "border: none;"
-            "border-radius: 6px;"
-            "font: 11px 'Microsoft YaHei';"
-            "padding: 4px 8px;"
-            "}"
-            "QPushButton:hover { background-color: rgba(236,243,252,250); }"
-            "QPushButton:pressed { background-color: rgba(228,236,248,252); }");
+        btn->setStyleSheet(szmetro::UiStyleService::style(
+            QStringLiteral("metro_map.quick_buy_button"),
+            QStringLiteral("QPushButton {"
+                           "background-color: rgba(245,248,253,245);"
+                           "color: rgba(38,68,111,230);"
+                           "border: none;"
+                           "border-radius: 6px;"
+                           "font: 11px 'Microsoft YaHei';"
+                           "padding: 4px 8px;"
+                           "}"
+                           "QPushButton:hover { background-color: rgba(236,243,252,250); }"
+                           "QPushButton:pressed { background-color: rgba(228,236,248,252); }")));
         connect(btn, &QPushButton::clicked, this, [this, amount]() {
             emit quickPurchaseRequested(QStringLiteral("单程票"), amount, 1);
         });
@@ -820,56 +827,60 @@ void MetroMapWidget::buildQuickBuyPanel()
     minusButton->setCursor(Qt::PointingHandCursor);
     minusButton->setMinimumHeight(30);
     minusButton->setMinimumWidth(30);
-    minusButton->setStyleSheet(
-        "QPushButton {"
-        "background-color: rgba(236,243,252,245);"
-        "color: rgba(38,68,111,232);"
-        "border: none;"
-        "border-radius: 6px;"
-        "font: 700 14px 'Microsoft YaHei';"
-        "}"
-        "QPushButton:pressed { background-color: rgba(228,236,248,252); }");
+    minusButton->setStyleSheet(szmetro::UiStyleService::style(
+        QStringLiteral("metro_map.quick_buy_step_button"),
+        QStringLiteral("QPushButton {"
+                       "background-color: rgba(236,243,252,245);"
+                       "color: rgba(38,68,111,232);"
+                       "border: none;"
+                       "border-radius: 6px;"
+                       "font: 700 14px 'Microsoft YaHei';"
+                       "}"
+                       "QPushButton:pressed { background-color: rgba(228,236,248,252); }")));
     customFareSpin_ = new QSpinBox(quickBuyPanel_);
     customFareSpin_->setRange(2, 13);
     customFareSpin_->setValue(8);
     customFareSpin_->setSuffix(QStringLiteral(" 元"));
     customFareSpin_->setButtonSymbols(QAbstractSpinBox::NoButtons);
-    customFareSpin_->setStyleSheet(
-        "QSpinBox {"
-        "background-color: rgba(245,248,253,245);"
-        "color: rgba(38,68,111,230);"
-        "border: none;"
-        "border-radius: 6px;"
-        "font: 700 11px 'Microsoft YaHei';"
-        "padding: 4px 6px;"
-        "}");
+    customFareSpin_->setStyleSheet(szmetro::UiStyleService::style(
+        QStringLiteral("metro_map.quick_buy_spin"),
+        QStringLiteral("QSpinBox {"
+                       "background-color: rgba(245,248,253,245);"
+                       "color: rgba(38,68,111,230);"
+                       "border: none;"
+                       "border-radius: 6px;"
+                       "font: 700 11px 'Microsoft YaHei';"
+                       "padding: 4px 6px;"
+                       "}")));
     auto* plusButton = new QPushButton(QStringLiteral("+"), quickBuyPanel_);
     plusButton->setCursor(Qt::PointingHandCursor);
     plusButton->setMinimumHeight(30);
     plusButton->setMinimumWidth(30);
-    plusButton->setStyleSheet(
-        "QPushButton {"
-        "background-color: rgba(236,243,252,245);"
-        "color: rgba(38,68,111,232);"
-        "border: none;"
-        "border-radius: 6px;"
-        "font: 700 14px 'Microsoft YaHei';"
-        "}"
-        "QPushButton:pressed { background-color: rgba(228,236,248,252); }");
+    plusButton->setStyleSheet(szmetro::UiStyleService::style(
+        QStringLiteral("metro_map.quick_buy_step_button"),
+        QStringLiteral("QPushButton {"
+                       "background-color: rgba(236,243,252,245);"
+                       "color: rgba(38,68,111,232);"
+                       "border: none;"
+                       "border-radius: 6px;"
+                       "font: 700 14px 'Microsoft YaHei';"
+                       "}"
+                       "QPushButton:pressed { background-color: rgba(228,236,248,252); }")));
     customFareBuyButton_ = new QPushButton(QStringLiteral("按此票价购票"), quickBuyPanel_);
     customFareBuyButton_->setCursor(Qt::PointingHandCursor);
     customFareBuyButton_->setMinimumHeight(30);
-    customFareBuyButton_->setStyleSheet(
-        "QPushButton {"
-        "background-color: rgba(245,248,253,245);"
-        "color: rgba(38,68,111,230);"
-        "border: none;"
-        "border-radius: 6px;"
-        "font: 11px 'Microsoft YaHei';"
-        "padding: 4px 8px;"
-        "}"
-        "QPushButton:hover { background-color: rgba(236,243,252,250); }"
-        "QPushButton:pressed { background-color: rgba(228,236,248,252); }");
+    customFareBuyButton_->setStyleSheet(szmetro::UiStyleService::style(
+        QStringLiteral("metro_map.quick_buy_custom_buy"),
+        QStringLiteral("QPushButton {"
+                       "background-color: rgba(245,248,253,245);"
+                       "color: rgba(38,68,111,230);"
+                       "border: none;"
+                       "border-radius: 6px;"
+                       "font: 11px 'Microsoft YaHei';"
+                       "padding: 4px 8px;"
+                       "}"
+                       "QPushButton:hover { background-color: rgba(236,243,252,250); }"
+                       "QPushButton:pressed { background-color: rgba(228,236,248,252); }")));
     connect(minusButton, &QPushButton::clicked, this, [this]() {
         if (customFareSpin_ != nullptr)
         {
@@ -897,17 +908,18 @@ void MetroMapWidget::buildQuickBuyPanel()
     dayPassBuyButton_ = new QPushButton(QStringLiteral("旅游日票\n25元"), quickBuyPanel_);
     dayPassBuyButton_->setCursor(Qt::PointingHandCursor);
     dayPassBuyButton_->setMinimumHeight(48);
-    dayPassBuyButton_->setStyleSheet(
-        "QPushButton {"
-        "background-color: rgba(250,247,240,246);"
-        "color: rgba(112,84,32,232);"
-        "border: none;"
-        "border-radius: 6px;"
-        "font: 10px 'Microsoft YaHei';"
-        "padding: 5px 8px;"
-        "}"
-        "QPushButton:hover { background-color: rgba(248,242,227,252); }"
-        "QPushButton:pressed { background-color: rgba(241,233,214,252); }");
+    dayPassBuyButton_->setStyleSheet(szmetro::UiStyleService::style(
+        QStringLiteral("metro_map.quick_buy_day_pass"),
+        QStringLiteral("QPushButton {"
+                       "background-color: rgba(250,247,240,246);"
+                       "color: rgba(112,84,32,232);"
+                       "border: none;"
+                       "border-radius: 6px;"
+                       "font: 10px 'Microsoft YaHei';"
+                       "padding: 5px 8px;"
+                       "}"
+                       "QPushButton:hover { background-color: rgba(248,242,227,252); }"
+                       "QPushButton:pressed { background-color: rgba(241,233,214,252); }")));
     connect(dayPassBuyButton_, &QPushButton::clicked, this, [this]() {
         emit quickPurchaseRequested(QStringLiteral("单日畅行旅游票"), 25, 1);
     });
@@ -1767,3 +1779,6 @@ void MetroMapWidget::drawStationLabels(QPainter& painter, const QRectF& drawRect
         }
     }
 }
+
+
+

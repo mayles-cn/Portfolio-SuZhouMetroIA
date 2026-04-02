@@ -1,5 +1,7 @@
 ﻿#include "widgets/station_panel_widget.h"
 
+#include "services/style_service.h"
+
 #include <QHBoxLayout>
 #include <QIcon>
 #include <QLabel>
@@ -30,10 +32,11 @@ StationPanelWidget::StationPanelWidget(QWidget* parent)
     layout->setSpacing(5);
 
     titleLabel_ = new QLabel(QStringLiteral("站点信息"), this);
-    titleLabel_->setStyleSheet(
-        "color: rgba(16,44,88,228);"
-        "font: 700 13px 'Microsoft YaHei';"
-        "background: transparent;");
+    titleLabel_->setStyleSheet(szmetro::UiStyleService::style(
+        QStringLiteral("station_panel.title"),
+        QStringLiteral("color: rgba(16,44,88,228);"
+                       "font: 700 13px 'Microsoft YaHei';"
+                       "background: transparent;")));
     layout->addWidget(titleLabel_);
 
     currentLabel_ = new QLabel(this);
@@ -43,22 +46,25 @@ StationPanelWidget::StationPanelWidget(QWidget* parent)
     distanceLabel_ = new QLabel(this);
     etaLabel_ = new QLabel(this);
 
-    const QString commonStyle = QStringLiteral(
-        "color: rgba(20,48,86,220);"
-        "font: 11px 'Microsoft YaHei';"
-        "background: transparent;");
+    const QString commonStyle = szmetro::UiStyleService::style(
+        QStringLiteral("station_panel.common_label"),
+        QStringLiteral("color: rgba(20,48,86,220);"
+                       "font: 11px 'Microsoft YaHei';"
+                       "background: transparent;"));
     currentLabel_->setStyleSheet(commonStyle);
     targetLabel_->setStyleSheet(commonStyle);
     lineLabel_->setStyleSheet(commonStyle);
-    fareLabel_->setStyleSheet(
-        "color: rgba(24,72,142,236);"
-        "font: 700 12px 'Microsoft YaHei';"
-        "background: transparent;");
+    fareLabel_->setStyleSheet(szmetro::UiStyleService::style(
+        QStringLiteral("station_panel.fare_label"),
+        QStringLiteral("color: rgba(24,72,142,236);"
+                       "font: 700 12px 'Microsoft YaHei';"
+                       "background: transparent;")));
     distanceLabel_->setStyleSheet(commonStyle);
-    etaLabel_->setStyleSheet(
-        "color: rgba(20,72,126,230);"
-        "font: 700 11px 'Microsoft YaHei';"
-        "background: transparent;");
+    etaLabel_->setStyleSheet(szmetro::UiStyleService::style(
+        QStringLiteral("station_panel.eta_label"),
+        QStringLiteral("color: rgba(20,72,126,230);"
+                       "font: 700 11px 'Microsoft YaHei';"
+                       "background: transparent;")));
     lineLabel_->setWordWrap(true);
 
     layout->addWidget(currentLabel_);
@@ -77,17 +83,18 @@ StationPanelWidget::StationPanelWidget(QWidget* parent)
     goButton_->setIconSize(QSize(16, 16));
     goButton_->setCursor(Qt::PointingHandCursor);
     goButton_->setEnabled(false);
-    goButton_->setStyleSheet(
-        "QPushButton {"
-        "background-color: rgba(30,102,208,232);"
-        "color: white;"
-        "border: none;"
-        "border-radius: 8px;"
-        "font: 700 11px 'Microsoft YaHei';"
-        "padding: 6px 10px;"
-        "}"
-        "QPushButton:hover { background-color: rgba(30,102,208,248); }"
-        "QPushButton:disabled { background-color: rgba(138,152,176,164); }");
+    goButton_->setStyleSheet(szmetro::UiStyleService::style(
+        QStringLiteral("station_panel.goto_button"),
+        QStringLiteral("QPushButton {"
+                       "background-color: rgba(30,102,208,232);"
+                       "color: white;"
+                       "border: none;"
+                       "border-radius: 8px;"
+                       "font: 700 11px 'Microsoft YaHei';"
+                       "padding: 6px 10px;"
+                       "}"
+                       "QPushButton:hover { background-color: rgba(30,102,208,248); }"
+                       "QPushButton:disabled { background-color: rgba(138,152,176,164); }")));
     actionRow->addWidget(goButton_, 0);
     actionRow->addStretch(1);
     layout->addLayout(actionRow);
@@ -179,3 +186,6 @@ void StationPanelWidget::paintEvent(QPaintEvent* event)
     bg.setColorAt(1.0, QColor(232, 242, 255, 124));
     painter.fillPath(panelPath, bg);
 }
+
+
+

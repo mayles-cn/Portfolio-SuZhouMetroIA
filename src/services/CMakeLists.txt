@@ -1,4 +1,4 @@
-set(SERVICE_SOURCES
+﻿set(SERVICE_SOURCES
     ${SERVICE_SOURCES}
     ${CMAKE_CURRENT_SOURCE_DIR}/route_service.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/route_service.h
@@ -6,6 +6,8 @@ set(SERVICE_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/fare_service.h
     ${CMAKE_CURRENT_SOURCE_DIR}/app_config_service.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/app_config_service.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/style_service.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/style_service.h
     ${CMAKE_CURRENT_SOURCE_DIR}/metro_tool_service.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/metro_tool_service.h
     ${CMAKE_CURRENT_SOURCE_DIR}/qwen_assistant_service.cpp
@@ -16,3 +18,4 @@ set(SERVICE_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/activity_logger.h
     PARENT_SCOPE
 )
+

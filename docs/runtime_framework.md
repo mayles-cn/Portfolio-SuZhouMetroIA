@@ -1,62 +1,103 @@
-﻿# 运行时框架
+﻿# 运行时框架（Runtime Framework）
 
-## 1. 分层结构
+本文档描述 SuZhouMetroIA 的运行时组织方式、事件流与关键稳定性策略。
 
-- UI 层
-  - `MainWindow`
-  - `ChatPanelWidget`
-  - `VoiceAssistantWidget`
-  - `MetroMapWidget`
-  - `SettlementWidget`
-  - `ModelSettingsWidget`
-- 编排层
-  - `ChatPanelWidget` 负责交互编排（语音启停、转写合并、消息分发）
-- 服务层
-  - `SpeechRealtimeService`：ASR WebSocket、音频提交策略、重连
-  - `QwenAssistantService`：模型请求流水线、函数调用、重试
-  - `MetroToolService`：地铁领域工具执行
-  - `AppConfigService`：配置加载（Key/模型/规则）
-  - `ActivityLogger`：结构化日志
-- 数据层
-  - `src/models/` 下的 JSON 数据与模型
+## 1. 分层模型
 
-## 2. 关键交互流程
+### 1.1 UI 层
 
-1. 用户通过文本或语音发起请求。
-2. `ChatPanelWidget` 负责转写拼接与去重，触发模型请求。
-3. `QwenAssistantService` 携带工具定义请求模型。
-4. 如果模型返回工具调用，执行工具并续轮请求。
-5. 模型回复以流式片段返回到聊天面板。
-6. 当回复涉及购票/结算意图时，可打开结算面板。
-7. 地图侧支持两条直接购票链路：
-   - 站点信息面板 `去这里` -> 预填路线购票 -> 打开结算
-   - 左侧快速购票 -> 预填快捷票单 -> 打开结算
+- `MainWindow`：主窗口与全局布局调度。
+- `MetroMapWidget`：地图与站点交互。
+- `ChatPanelWidget`：聊天与语音结果展示。
+- `VoiceAssistantWidget`：语音采集入口。
+- `StationPanelWidget`：站点详情与“去这里”动作。
+- `RoutePlanWidget`：路线图形化展示。
+- `SettlementWidget`：结算与出票。
+- `TextPromptWidget`：快捷文本输入。
+- `ModelSettingsWidget`：模型调试项开关。
+- `InformationBarWidget`：底部公告滚动条。
 
-## 3. 稳定性策略
+### 1.2 编排层
 
-- ASR
-  - 启动预连接，断线自动重连
-  - 提交保护：无音频不提交、服务端已提交不重复提交
-- LLM
-  - 单飞请求（同一时间仅一个请求）
-  - 最新请求排队（last-write-wins）
-  - 短暂网络异常超时重试一次
-  - 对话历史长度控制
-- UI
-  - 面板显示/隐藏由快捷键控制：`F7/F8/F9`
-  - 结算面板使用动画展开，防止突兀跳变
+- `MainWindow` 通过 `signal/slot` 串联核心业务流程：
+  - 地图选站 -> 路线规划更新
+  - 地图选站/快速购票 -> 结算预填并打开
+  - 结算完成 -> 聊天区重置
+  - F7/F8/F9 管理浮层开关
 
-## 4. 日志分类
+- `ChatPanelWidget` 负责语音与模型请求编排：
+  - partial/final 文本合并
+  - 去重节流
+  - 一次语音会话只提交一条有效文本
 
-- 生命周期：`app`、`ui.window`
-- 语音：`asr.*`、`asr.socket*`、`asr.capture`、`asr.final`
-- 模型：`llm.request`、`llm.http`、`llm.response`、`llm.tool`
-- 流式：`llm.stream`、`llm.stream.delta`
-- 交互：`chat.message`、`service.status`
+### 1.3 服务层
 
-## 5. 产品约束
+- `SpeechRealtimeService`：实时 ASR 通道维护与音频提交。
+- `QwenAssistantService`：LLM 请求、工具回合、流式输出。
+- `MetroToolService`：线路/站点/票价领域工具。
+- `FareService`、`RouteService`：票价与路径算法支持。
+- `AppConfigService`：模型与规则配置。
+- `UiStyleService`：统一样式 JSON 读取。
+- `ActivityLogger`：结构化日志。
 
-- 中文优先界面与文案。
-- 地铁领域问答严格限定在苏州地铁范围。
-- 涉及时效性信息时需避免无依据陈述。
-- 购票与支付流程为模拟演示，不接入真实支付通道。
+### 1.4 数据层
+
+- `src/models/suzhou_metro_network_core.json`：地铁网络基础数据。
+- `src/models/informationBar.json`：公告条内容与滚动参数。
+- `src/models/station_maps/*.png`：站点周边示意图。
+- `resources/metro_data.qrc`：Qt 资源汇总入口。
+
+## 2. 关键运行链路
+
+### 2.1 文本问答链路
+
+1. 用户在 `TextPromptWidget` 或聊天框输入问题。
+2. `ChatPanelWidget` 发送 `promptSubmitted`。
+3. `QwenAssistantService` 发起请求。
+4. 若触发工具调用：`QwenAssistantService -> MetroToolService`。
+5. 模型文本以流式分片返回至聊天面板。
+
+### 2.2 语音问答链路
+
+1. 用户按下语音球，`VoiceAssistantWidget` 开始采集。
+2. `SpeechRealtimeService` 回传 partial/final 文本。
+3. `ChatPanelWidget` 合并本轮分段，保持单条用户气泡。
+4. 释放语音球后触发一次最终提交。
+
+### 2.3 地图到结算链路
+
+1. 地图选站，更新 `StationPanelWidget`。
+2. 点击“去这里”触发 `routeSettlementRequested`。
+3. `SettlementWidget::prefillRouteTicket` 填充并展示订单。
+
+### 2.4 快速购票链路
+
+1. 快速购票按钮触发 `quickPurchaseRequested`。
+2. `SettlementWidget::prefillQuickTicket` 生成快捷订单。
+
+## 3. 并发与状态控制
+
+1. `QwenAssistantService` 采用单飞请求模型：
+   - 同时仅允许一个在途请求。
+   - 若新请求到来，保留最新请求覆盖排队。
+
+2. ASR 与 LLM 解耦：
+   - 语音链路仅负责转写，提交时机由 UI 编排层决定。
+
+3. 面板状态隔离：
+   - 结算、文本输入、模型设置面板各自维护显隐状态。
+
+## 4. 稳定性策略
+
+1. ASR 通道异常自动重连。
+2. 网络超时自动重试一次（模型请求）。
+3. 工具调用失败时返回结构化错误，不中断主流程。
+4. 关键节点均有日志埋点，便于回放问题。
+
+## 5. 样式系统接入点（本次改动）
+
+- 新增 `UiStyleService`，统一从 `config/ui_styles.json` 读取 QSS。
+- 控件调用模式：`UiStyleService::style(key, fallback)`。
+- 若配置缺失，自动使用 fallback，保证 UI 可用性。
+
+相关说明见：[style_system.md](style_system.md)
